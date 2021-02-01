@@ -43,3 +43,5 @@ def create_movie_table(dynamodb=None):
 if __name__ == '__main__':
     movie_table = create_movie_table()
     print("Table status:", movie_table.table_status)
+
+#this is a test message
