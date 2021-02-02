@@ -8,6 +8,7 @@ x = SmartPlug('192.168.1.123', '494763')
 #x = SmartPlug('192.168.0.28', '956258')
 
 last = int(x.state)
+
 while True:
 	#print(x.state)
 	now = int(x.state)

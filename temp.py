@@ -7,7 +7,7 @@ import databaseHandler
 
 min = databaseHandler.getMinTemperature(1)
 max = databaseHandler.getMaxTemperature(1)
-r = os.system("ping -c 1 -W 1 192.168.1.101")
+r = os.system("ping -c 1 192.168.1.101")
 print(r)
 if r != 0:
 	requests.get("http://192.168.1.100:6969/plugs/0/off")

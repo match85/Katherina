@@ -1,3 +1,4 @@
+import prettyprinter
 from prettyprinter import pprint
 import boto3
 from botocore.exceptions import ClientError
