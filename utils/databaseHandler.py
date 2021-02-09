@@ -1,4 +1,5 @@
-import botoTest
+from Test import botoTest
+
 
 def getCurrentTemperature(id):
     r = botoTest.get_data("Temperature", id)

@@ -3,10 +3,8 @@
 from flask import Flask
 import requests
 import json
-import os
 import socket
-import sys
-from pyW215 import SmartPlug, ON, OFF
+from utils.pyW215 import SmartPlug, ON, OFF
 from flask import request
 
 sp = [SmartPlug('192.168.1.120', '956258'), SmartPlug('192.168.1.121', '222595')]

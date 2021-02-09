@@ -1,6 +1,5 @@
 #!python3
-from pyW215 import SmartPlug, ON, OFF
-import os
+from utils.pyW215 import SmartPlug
 import time
 import requests
 

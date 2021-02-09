@@ -1,9 +1,8 @@
 #python3
 
-import time
 import os
 import requests
-import databaseHandler
+from utils import databaseHandler
 
 min = databaseHandler.getMinTemperature(1)
 max = databaseHandler.getMaxTemperature(1)
