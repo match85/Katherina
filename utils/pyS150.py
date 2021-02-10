@@ -4,8 +4,8 @@ try:
     from urllib.error import URLError, HTTPError
 except ImportError:
     # Assume Python 2.x
-    from urllib2 import Request, urlopen
-    from urllib2 import URLError, HTTPError
+    from urllib3 import Request, urlopen
+    from urllib3 import URLError, HTTPError
 import xml.etree.ElementTree as ET
 import hmac
 import time
@@ -14,10 +14,8 @@ import logging
 _LOGGER = logging.getLogger(__name__)
 
 
-ON = 'ON'
-OFF = 'OFF'
 
-class SmartPlug(object):
+class MotionSensor(object):
     """
     Class to access:
         * D-Link Smart Plug Switch W215
@@ -165,6 +163,7 @@ class SmartPlug(object):
             else:
                 return return_value
 
+        #print(response.read())
         xmlData = response.read().decode()
         root = ET.fromstring(xmlData)
 
@@ -196,92 +195,10 @@ class SmartPlug(object):
         return {line.decode().split(':')[0].strip(): line.decode().split(':')[1].strip() for line in lines}
 
     @property
-    def current_consumption(self):
-        """Get the current power consumption in Watt."""
-        res = 'N/A'
-        if self.use_legacy_protocol:
-            # Use /my_cgi.cgi to retrieve current consumption
-            try:
-                res = self.fetchMyCgi()['Meter Watt']
-            except:
-                return 'N/A'
-        else:
-            try:
-                res = self.SOAPAction('GetCurrentPowerConsumption', 'CurrentConsumption', self.moduleParameters("2"))
-            except:
-                return 'N/A'
-
-        if res is None:
-            return 'N/A'
-
-        try:
-            res = float(res)
-        except ValueError:
-            _LOGGER.error("Failed to retrieve current power consumption from SmartPlug")
-
-        return res
-
-    @property
-    def total_consumption(self):
-        """Get the total power consumpuntion in the device lifetime."""
-        if self.use_legacy_protocol:
-            # TotalConsumption currently fails on the legacy protocol and
-            # creates a mess in the logs. Just return 'N/A' for now.
-            return 'N/A'
-
-        res = 'N/A'
-        try:
-            res = self.SOAPAction("GetPMWarningThreshold", "TotalConsumption", self.moduleParameters("2"))
-        except:
-            return 'N/A'
-
-        if res is None:
-            return 'N/A'
-
-        try:
-            float(res)
-        except ValueError:
-            _LOGGER.error("Failed to retrieve total power consumption from SmartPlug")
-
-        return res
-
-    @property
-    def temperature(self):
-        """Get the device temperature in celsius."""
-        try:
-            res = self.SOAPAction('GetCurrentTemperature', 'CurrentTemperature', self.moduleParameters("3"))
-        except:
-            res = 'N/A'
-
-        return res
-
-    @property
     def state(self):
         """Get the device state (i.e. ON or OFF)."""
-        response =  self.SOAPAction('GetSocketSettings', 'OPStatus', self.moduleParameters("1"))
-        if response is None:
-            return 'unknown'
-        elif response.lower() == 'true':
-            return ON
-        elif response.lower() == 'false':
-            return OFF
-        else:
-            _LOGGER.warning("Unknown state %s returned" % str(response.lower()))
-            return 'unknown'
-
-    @state.setter
-    def state(self, value):
-        """Set device state.
-
-        :type value: str
-        :param value: Future state (either ON or OFF)
-        """
-        if value.upper() == ON:
-            return self.SOAPAction('SetSocketSettings', 'SetSocketSettingsResult', self.controlParameters("1", "true"))
-        elif value.upper() == OFF:
-            return self.SOAPAction('SetSocketSettings', 'SetSocketSettingsResult', self.controlParameters("1", "false"))
-        else:
-            raise TypeError("State %s is not valid." % str(value))
+        response =  self.SOAPAction('GetLatestDetection', 'LatestDetectTime', self.moduleParameters("1"))
+        return response
 
     def auth(self):
         """Authenticate using the SOAP interface.

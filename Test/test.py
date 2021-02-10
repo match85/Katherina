@@ -1,6 +1,9 @@
 #python3
+import os
+import time
 
-from config import config
-from configparser import ConfigParser
+from utils import deviceHandler
 
-print(config.getDlinkPlugIp(2))
+
+print(deviceHandler.getPlugState(1))
+print(deviceHandler.getMotionState())

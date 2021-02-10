@@ -1,19 +1,18 @@
 #!python3
-from utils.pyW215 import SmartPlug
+from utils import deviceHandler
 import time
 import requests
 
-x = SmartPlug('192.168.1.123', '494763')
-#x = SmartPlug('192.168.0.28', '956258')
 
-last = int(x.state)
+
+last = deviceHandler.getMotionState()
 
 while True:
-	#print(x.state)
-	now = int(x.state)
+	now = deviceHandler.getMotionState()
 	if now > last:
-		#print('MOTION!!!')
+		print("Motion")
 		requests.get('http://192.168.1.100:6969/lights/4/on')
 		last = now
 	if time.time() > last + 60:
+		print("off")
 		requests.get('http://192.168.1.100:6969/lights/4/off')

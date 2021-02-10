@@ -4,6 +4,8 @@ from flask import Flask
 import requests
 import json
 import socket
+
+from utils import databaseHandler
 from utils.pyW215 import SmartPlug, ON, OFF
 from flask import request
 
@@ -75,9 +77,7 @@ def getParams():
 def getTemp():
 	temp = request.args.get('temp')
 	hum = request.args.get('hum')
-	tempRep = open("/tmp/tempRep.txt", "w+")
-	tempRep.write(str(temp))
-	tempRep.close()
+	databaseHandler.setCurrentTemperature(1, temp)
 	return temp
 
 if __name__ == '__main__':

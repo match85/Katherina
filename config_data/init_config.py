@@ -1,14 +1,14 @@
 from configparser import ConfigParser
 
 config = ConfigParser(allow_no_value=True)
-config.read("config/config.ini")
+config.read(r"C:\Users\match\PycharmProjects\Katherina\config_data\config.ini")
 
-#Raspberry config data
+#Raspberry config_data data
 def getRpiIp():
     return config["Raspberry"]["ip"]
 
 
-#Flask config data
+#Flask config_data data
 def getFlaskIp():
     return config["Flask"]["ip"]
 
@@ -16,12 +16,12 @@ def getPortIp():
     return config["Flask"]["port"]
 
 
-#Phone config data
+#Phone config_data data
 def getPhoneIp():
     return config["Phone"]["ip"]
 
 
-#Philips config data
+#Philips config_data data
 def getPhilipsIp():
     return config["Philips"]["ip"]
 
@@ -29,12 +29,12 @@ def getPhilipsAuth():
     return config["Philips"]["auth"]
 
 
-#Dynamo config data
+#Dynamo config_data data
 def getDynamoUrl():
     return config["dynamo"]["url"]
 
 
-#Dlink config data
+#Dlink config_data data
 ##Plugs
 def getDlinkPlugIp(id):
     return config["DLink"]["plug_ip_" + str(id)]
@@ -51,7 +51,7 @@ def getDlinkMotionAuth():
 
 
 #TODO
-#Shelly config data
+#Shelly config_data data
 ##Temperature
 
 

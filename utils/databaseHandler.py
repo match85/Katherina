@@ -33,5 +33,3 @@ def setMaxTemperature(id, value):
     min = getMinTemperature(id)
     botoTest.update_data("Temperature", id, current, min, value)
     return "OK"
-
-setMaxTemperature(1, 22.00)
