@@ -33,3 +33,7 @@ def setMaxTemperature(id, value):
     min = getMinTemperature(id)
     botoTest.update_data("Temperature", id, current, min, value)
     return "OK"
+
+def setCurrentHumidity(id, value):
+    botoTest.update_data("Humidity", id, value)
+    return "OK"

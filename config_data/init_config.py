@@ -1,7 +1,8 @@
 from configparser import ConfigParser
 
 config = ConfigParser(allow_no_value=True)
-config.read(r"C:\Users\match\PycharmProjects\Katherina\config_data\config.ini")
+#config.read(r"C:\Users\match\PycharmProjects\Katherina\config_data\config.ini")
+config.read("../config_data/config.ini")
 
 #Raspberry config_data data
 def getRpiIp():

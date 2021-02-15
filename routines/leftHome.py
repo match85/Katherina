@@ -4,9 +4,6 @@ import os
 import time
 from utils import deviceHandler
 
-url5 = "http://192.168.1.100:6969/plugs/0/off"
-
-
 r = os.system("ping -c 1 -w 1 192.168.1.101")
 
 if r != 0:
@@ -25,4 +22,4 @@ if r != 0:
 		deviceHandler.setLightState(2, "off")
 		deviceHandler.setLightState(3, "off")
 		deviceHandler.setLightState(4, "off")
-		requests.get(url5)
+		deviceHandler.setPlugState(0, "off")
