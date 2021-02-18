@@ -37,3 +37,8 @@ def setMaxTemperature(id, value):
 def setCurrentHumidity(id, value):
     botoTest.update_data("Humidity", id, value)
     return "OK"
+
+def getCurrentHumidity(id):
+    r = botoTest.get_data("Humidity", id)
+    r2 = r.get("info")
+    return float(r2.get("current_hum"))

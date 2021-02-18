@@ -1,5 +1,8 @@
 #python3
 import json
+import platform
+import subprocess
+import time
 
 from config_data import init_config
 import requests
@@ -9,6 +12,35 @@ from utils.pyW215 import SmartPlug, ON, OFF
 from utils import databaseHandler
 
 hubUrl = "http://" + init_config.getPhilipsIp() + "/api/" + init_config.getPhilipsAuth()
+
+#Phone check
+def getPhoneState(timeout):
+	param = '-n' if platform.system().lower() == 'windows' else '-c'
+	command = ['ping', param, '1', init_config.getPhoneIp()]
+	process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	out, err = process.communicate()
+	response = str(out).find("TTL")
+	if response == -1:
+		presence = False
+	else:
+		presence = True
+
+	if timeout == 0:
+		return presence
+
+	if response == -1:
+		i = 0
+
+		while (presence != True) and (i < timeout):
+			time.sleep(60)
+			process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+			out, err = process.communicate()
+			response = str(out).find("TTL")
+			if response == -1:
+				i += 1
+			else:
+				presence = True
+	return presence
 
 #DLink
 ##Motion
@@ -90,3 +122,8 @@ def setMinTemperature(id, value):
 def setMaxTemperature(id, value):
 	return databaseHandler.getMaxTemperature(id, value)
 
+def setCurrentHumidity(id, value):
+	return databaseHandler.setCurrentHumidity(id, value)
+
+def getCurrentHumidity(id):
+	return databaseHandler.getCurrentHumidity(id)

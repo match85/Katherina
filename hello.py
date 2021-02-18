@@ -6,6 +6,7 @@ import json
 import socket
 
 from utils import databaseHandler
+from utils import deviceHandler
 from utils.pyW215 import SmartPlug, ON, OFF
 from flask import request
 
@@ -19,32 +20,21 @@ def index():
 
 @app.route('/lights/<id>/<switch>')
 def switchLight(id, switch):
-	url = "http://192.168.1.110/api/XlAMIoJxhvTwYMQiefuXtjQfnfDVG4tEMOhnHVtv/lights/" + id + "/state"
-	if switch == 'on':
-		data = {"on":True}
-	else:
-		data = {"on":False}
-	r = requests.put(url, json.dumps(data), timeout=5)
+	deviceHandler.setLightState(id, switch)
 	return 'OK'
 
 @app.route('/lights/<id>/state')
 def switchState(id):
-	url = "http://192.168.1.110/api/XlAMIoJxhvTwYMQiefuXtjQfnfDVG4tEMOhnHVtv/lights/" + id
-	r = requests.get(url)
-	data = r.json()
-	return str(data['state']['on'])
+	return str(deviceHandler.getLightState(id))
 
 @app.route('/plugs/<int:id>/<switch>')
 def switchPlug(id, switch):
-	if switch == 'on':
-		sp[id].state = ON
-	else:
-		sp[id].state = OFF
+	deviceHandler.setPlugState(id, switch)
 	return 'OK'
 
 @app.route('/plugs/<int:id>/state')
 def plugState(id):
-	return str(sp[id].state)
+	return str(deviceHandler.getPlugState(id))
 
 @app.route('/sensors/<id>/<category>/<element>')
 def sensorState(id, category, element):
