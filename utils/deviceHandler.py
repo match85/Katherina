@@ -16,10 +16,11 @@ hubUrl = "http://" + init_config.getPhilipsIp() + "/api/" + init_config.getPhili
 #Phone check
 def getPhoneState(timeout):
 	param = '-n' if platform.system().lower() == 'windows' else '-c'
-	command = ['ping', param, '1', init_config.getPhoneIp()]
+	param2 = '-w' if platform.system().lower() == 'windows' else '-W'
+	command = ['ping', param, '1', param2, '1', init_config.getPhoneIp()]
 	process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 	out, err = process.communicate()
-	response = str(out).find("TTL")
+	response = str(out).lower().find("ttl")
 	if response == -1:
 		presence = False
 	else:
@@ -35,7 +36,7 @@ def getPhoneState(timeout):
 			time.sleep(60)
 			process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 			out, err = process.communicate()
-			response = str(out).find("TTL")
+			response = str(out).lower().find("ttl")
 			if response == -1:
 				i += 1
 			else:
