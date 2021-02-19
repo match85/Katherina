@@ -1,6 +1,8 @@
 #python3
 
 import os
+import sys
+sys.path.append("..")
 from utils import databaseHandler
 from utils import deviceHandler
 
