@@ -2,6 +2,8 @@ import requests
 import json
 import os
 import time
+import sys
+sys.path.append("..")
 from utils import deviceHandler
 
 """
