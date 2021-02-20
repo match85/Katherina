@@ -13,6 +13,7 @@ if not r:
 	deviceHandler.setPlugState(0, "off")
 else:
 	value = databaseHandler.getCurrentTemperature(1)
+	print(value)
 	if value <= min:
 		deviceHandler.setPlugState(0, "on")
 	if value >= max:
