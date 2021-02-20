@@ -6,6 +6,8 @@ from utils import deviceHandler
 
 min = databaseHandler.getMinTemperature(1)
 max = databaseHandler.getMaxTemperature(1)
+print(min)
+print(max)
 r = deviceHandler.getPhoneState(0)
 if not r:
 	deviceHandler.setPlugState(0, "off")
