@@ -14,7 +14,6 @@ from utils import deviceHandler
 from utils import databaseHandler
 
 #botoTest.update_data("Humidity", 1, "min_hum", 40)
-#TODO Success, update boto updater to update one value at a time
 
 #databaseHandler.setMaxTemperature(1, 22)
 

@@ -5,10 +5,10 @@ from flask import Flask
 import requests
 from utils import deviceHandler
 from flask import request
-
-#sp = [SmartPlug('192.168.1.120', '956258'), SmartPlug('192.168.1.121', '222595')]
-
+from config_data import init_config
 app = Flask(__name__)
+
+hubUrl = "http://" + init_config.getPhilipsIp() + "/api/" + init_config.getPhilipsAuth()
 
 @app.route('/')
 def index():
@@ -34,7 +34,7 @@ def plugState(id):
 
 @app.route('/sensors/<id>/<category>/<element>')
 def sensorState(id, category, element):
-	url = "http://192.168.1.110/api/XlAMIoJxhvTwYMQiefuXtjQfnfDVG4tEMOhnHVtv/sensors/" + id
+	url = hubUrl + "/sensors/" + id
 	r = requests.get(url)
 	data = r.json()
 	return str(data[category][element])

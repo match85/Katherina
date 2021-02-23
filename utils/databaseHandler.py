@@ -17,20 +17,14 @@ def getMaxTemperature(id):
     return float(r2.get("max_temp"))
 
 def setCurrentTemperature(id, value):
-    #min = getMinTemperature(id)
-    #max = getMaxTemperature(id)
     botoTest.update_data("Temperature", id, "current_temp", value)
     return "OK"
 
 def setMinTemperature(id, value):
-    #current = getCurrentTemperature(id)
-    #max = getMaxTemperature(id)
     botoTest.update_data("Temperature", id, "min_temp", value)
     return "OK"
 
 def setMaxTemperature(id, value):
-    #current = getCurrentTemperature(id)
-    #min = getMinTemperature(id)
     botoTest.update_data("Temperature", id, "max_temp", value)
     return "OK"
 
