@@ -18,4 +18,6 @@ monitor = {
     "Max humidity": deviceHandler.getMaxHumidity(1)
 }
 
-pprint(monitor)
+def getMonitor():
+    return monitor
+#pprint(monitor)

@@ -4,6 +4,7 @@ sys.path.append("..")
 from flask import Flask
 import requests
 from utils import deviceHandler
+from utils import monitor
 from flask import request
 from config_data import init_config
 app = Flask(__name__)
@@ -67,6 +68,10 @@ def getTemp():
 	deviceHandler.setCurrentTemperature(1, temp)
 	deviceHandler.setCurrentHumidity(1, hum)
 	return temp
+
+@app.route('/monitor')
+def monitor():
+	return monitor.getMonitor()
 
 if __name__ == '__main__':
 	app.run(debug=True, port=6969, host='0.0.0.0')
