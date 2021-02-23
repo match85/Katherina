@@ -10,7 +10,7 @@ from utils import deviceHandler
 from utils.pyW215 import SmartPlug, ON, OFF
 from flask import request
 
-sp = [SmartPlug('192.168.1.120', '956258'), SmartPlug('192.168.1.121', '222595')]
+#sp = [SmartPlug('192.168.1.120', '956258'), SmartPlug('192.168.1.121', '222595')]
 
 app = Flask(__name__)
 
@@ -43,7 +43,7 @@ def sensorState(id, category, element):
 	data = r.json()
 	return str(data[category][element])
 
-
+"""
 server_address = ('192.168.1.130', 6970)
 @app.route('/roomba/<command>')
 def setRoomba(command):
@@ -57,6 +57,7 @@ def setRoomba(command):
 		print('Closing')
 		sock.close()
 		return 'OK'
+"""
 
 @app.route('/test')
 def getParams():

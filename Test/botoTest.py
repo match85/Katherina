@@ -2,12 +2,14 @@ import prettyprinter
 from prettyprinter import pprint
 import boto3
 from botocore.exceptions import ClientError
+from config_data import init_config
 from decimal import Decimal
 
+dynamo_url = init_config.getDynamoUrl()
 
-def put_data(sensor, id, current_temp, min_temp, max_temp, dynamodb=None):
+def put_data_old(sensor, id, current_temp, min_temp, max_temp, dynamodb=None):
     if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://192.168.1.100:8000")
+        dynamodb = boto3.resource('dynamodb', endpoint_url=dynamo_url)
 
     table = dynamodb.Table('Data')
     response = table.put_item(
@@ -26,7 +28,7 @@ def put_data(sensor, id, current_temp, min_temp, max_temp, dynamodb=None):
 
 def get_data(sensor, id, dynamodb=None):
     if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://192.168.1.100:8000")
+        dynamodb = boto3.resource('dynamodb', endpoint_url=dynamo_url)
 
     table = dynamodb.Table('Data')
 
@@ -38,9 +40,9 @@ def get_data(sensor, id, dynamodb=None):
         return response['Item']
 
 
-def update_data(sensor, id, current_temp, min_temp, max_temp, dynamodb=None):
+def update_data_old(sensor, id, current_temp, min_temp, max_temp, dynamodb=None):
     if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://192.168.1.100:8000")
+        dynamodb = boto3.resource('dynamodb', endpoint_url=dynamo_url)
 
     table = dynamodb.Table('Data')
 
@@ -61,7 +63,7 @@ def update_data(sensor, id, current_temp, min_temp, max_temp, dynamodb=None):
 
 def delete_item(sensor, id, dynamodb=None):
     if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://192.168.1.100:8000")
+        dynamodb = boto3.resource('dynamodb', endpoint_url=dynamo_url)
 
     table = dynamodb.Table('Data')
 
@@ -81,35 +83,36 @@ def delete_item(sensor, id, dynamodb=None):
         return response
 
 
-if __name__ == '__main__':
-    sensor_resp = put_data("Temperature", 1, 22, 21, 23)
-    print("Put data succeeded:")
-    pprint(sensor_resp)
+def update_data(sensor, id, parameter, value, dynamodb=None):
+    if not dynamodb:
+        dynamodb = boto3.resource('dynamodb', endpoint_url=dynamo_url)
 
-    sensor = get_data("Temperature", 1)
-    if sensor:
-        print("Get data succeeded:")
-        pprint(sensor)
+    table = dynamodb.Table('Data')
 
-    update_response = update_data("Temperature", 1, 21.5, 21, 23)
-    print("Update data succeeded")
-    pprint(update_response)
+    response = table.update_item(
+        Key={
+            'id': id,
+            'sensor': sensor
+        },
+        UpdateExpression="set info." + parameter + "=:c",
+        ExpressionAttributeValues={
+            ':c': str(value)
+        },
+        ReturnValues="UPDATED_NEW"
+    )
 
-    sensor = get_data("Temperature", 1)
-    if sensor:
-        print("Get data succeeded:")
-        pprint(sensor)
-    print("Attempting to delete an item...")
+def put_data(sensor, id, preference, value, dynamodb=None):
+    if not dynamodb:
+        dynamodb = boto3.resource('dynamodb', endpoint_url=dynamo_url)
 
-"""
-    delete_response = delete_item("Temperature", 1)
-    if delete_response:
-        print("Delete data succeeded:")
-        pprint(delete_response)
-"""
-"""
-    movie = get_movie("The Big New Movie",2016)
-    if movie:
-        print("Get movie succeeded:")
-        pprint(movie)
-"""
+    table = dynamodb.Table('Data')
+    response = table.put_item(
+        Item={
+            'id': id,
+            'sensor': sensor,
+            'info': {
+                preference: str(value),
+            }
+        }
+    )
+    return response

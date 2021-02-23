@@ -114,6 +114,12 @@ def getPlugState(id):
 def getCurrentTemperature(id):
 	return databaseHandler.getCurrentTemperature(id)
 
+def getMinTemperature(id):
+	return databaseHandler.getMinTemperature(id)
+
+def getMaxTemperature(id):
+	return databaseHandler.getMaxTemperature(id)
+
 def setCurrentTemperature(id, value):
 	return databaseHandler.setCurrentTemperature(id, value)
 
@@ -128,3 +134,9 @@ def setCurrentHumidity(id, value):
 
 def getCurrentHumidity(id):
 	return databaseHandler.getCurrentHumidity(id)
+
+def getMinHumidity(id):
+	return databaseHandler.getMinHumidity(id)
+
+def getMaxHumidity(id):
+	return databaseHandler.getMaxHumidity(id)

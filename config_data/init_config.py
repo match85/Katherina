@@ -31,7 +31,7 @@ def getPhilipsAuth():
 
 #Dynamo config data
 def getDynamoUrl():
-    return config["dynamo"]["url"]
+    return config["Dynamo"]["url"]
 
 
 #Dlink config data
