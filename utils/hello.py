@@ -72,8 +72,9 @@ def getTemp():
 	return temp
 
 @app.route('/monitor')
-def monitor():
-	return pprint(monitor.getMonitor())
+def statusMonitor():
+	response = monitor.getMonitor()
+	return response
 
 if __name__ == '__main__':
 	app.run(debug=True, port=6969, host='0.0.0.0')
