@@ -3,6 +3,8 @@ import sys
 sys.path.append("..")
 from flask import Flask
 import requests
+import json
+from prettyprinter import pprint
 from utils import deviceHandler
 from utils import monitor
 from flask import request
@@ -71,7 +73,7 @@ def getTemp():
 
 @app.route('/monitor')
 def monitor():
-	return monitor.getMonitor()
+	return pprint(monitor.getMonitor())
 
 if __name__ == '__main__':
 	app.run(debug=True, port=6969, host='0.0.0.0')
