@@ -1,6 +1,6 @@
 #python3
 import sys
-#sys.path.append("../..")
+sys.path.append("..")
 from flask import Flask
 import requests
 from utils import deviceHandler
