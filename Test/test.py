@@ -19,4 +19,4 @@ from utils import databaseHandler
 #databaseHandler.setMaxTemperature(1, 22)
 
 #botoTest.put_data2("Humidity", 1, "max_hum", 60)
-databaseHandler.setCurrentHumidity(1, 56)
+print(init_config.getDynamoUrl())

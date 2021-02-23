@@ -2,12 +2,7 @@
 
 from flask import Flask
 import requests
-import json
-import socket
-
-from utils import databaseHandler
 from utils import deviceHandler
-from utils.pyW215 import SmartPlug, ON, OFF
 from flask import request
 
 #sp = [SmartPlug('192.168.1.120', '956258'), SmartPlug('192.168.1.121', '222595')]
@@ -68,8 +63,8 @@ def getParams():
 def getTemp():
 	temp = request.args.get('temp')
 	hum = request.args.get('hum')
-	databaseHandler.setCurrentTemperature(1, temp)
-	databaseHandler.setCurrentHumidity(1, hum)
+	deviceHandler.setCurrentTemperature(1, temp)
+	deviceHandler.setCurrentHumidity(1, hum)
 	return temp
 
 if __name__ == '__main__':
