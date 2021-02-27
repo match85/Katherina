@@ -13,10 +13,10 @@ from config_data import init_config
 from utils import deviceHandler
 from utils import databaseHandler
 from utils import monitor
+from datetime import date
 
-#botoTest.update_data("Humidity", 1, "min_hum", 40)
+today = date.today()
 
-#databaseHandler.setMaxTemperature(1, 22)
-
-#botoTest.put_data2("Humidity", 1, "max_hum", 60)
-print(monitor.getMonitor())
+import logging
+logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S', level=logging.DEBUG)
+logging.info("This is an info log entry")
