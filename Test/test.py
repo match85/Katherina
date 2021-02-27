@@ -1,18 +1,7 @@
 #python3
-import os
-import platform
-import subprocess
-import time
 import sys
-
-from Test import botoTest
-
 sys.path.append("..")
 
-from config_data import init_config
-from utils import deviceHandler
-from utils import databaseHandler
-from utils import monitor
 from datetime import date
 
 today = date.today()
