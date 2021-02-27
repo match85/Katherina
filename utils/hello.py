@@ -7,6 +7,9 @@ from utils import deviceHandler
 from utils import monitor
 from flask import request
 from config_data import init_config
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 app = Flask(__name__)
 
 hubUrl = "http://" + init_config.getPhilipsIp() + "/api/" + init_config.getPhilipsAuth()
