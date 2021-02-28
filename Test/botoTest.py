@@ -4,7 +4,7 @@ import boto3
 from botocore.exceptions import ClientError
 from config_data import init_config
 import logging
-logging.getLogger('boto').setLevel(logging.CRITICAL)
+logging.getLogger('boto3').setLevel(logging.CRITICAL)
 
 dynamo_url = init_config.getDynamoUrl()
 

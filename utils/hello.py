@@ -10,6 +10,8 @@ from config_data import init_config
 import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
+logging.getLogger('boto3').setLevel(logging.CRITICAL)
+
 app = Flask(__name__)
 
 hubUrl = "http://" + init_config.getPhilipsIp() + "/api/" + init_config.getPhilipsAuth()
