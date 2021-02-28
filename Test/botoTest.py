@@ -3,7 +3,8 @@ from prettyprinter import pprint
 import boto3
 from botocore.exceptions import ClientError
 from config_data import init_config
-
+import logging
+logging.getLogger('boto').setLevel(logging.CRITICAL)
 
 dynamo_url = init_config.getDynamoUrl()
 
