@@ -3,7 +3,7 @@ import sys
 sys.path.append("..")
 from utils import databaseHandler
 from utils import deviceHandler
-
+import logging
 
 min = databaseHandler.getMinTemperature(1)
 max = databaseHandler.getMaxTemperature(1)
@@ -16,6 +16,8 @@ else:
 	value = databaseHandler.getCurrentTemperature(1)
 	print(value)
 	if value <= min:
+		logging.info("Low temperature detected")
 		deviceHandler.setPlugState(0, "on")
 	if value >= max:
+		logging.info("High temperature detected")
 		deviceHandler.setPlugState(0, "off")
