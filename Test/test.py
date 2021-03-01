@@ -10,4 +10,4 @@ from utils import deviceHandler
 
 import logging
 
-deviceHandler.setLightState(3, "on")
+deviceHandler.getPhoneState(0)

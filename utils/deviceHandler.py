@@ -19,7 +19,7 @@ hubUrl = "http://" + init_config.getPhilipsIp() + "/api/" + init_config.getPhili
 
 #Phone check
 def getPhoneState(timeout):
-	logging("Checking phone state with timeout " + timeout + "minutes")
+	logging.info("Checking phone state with timeout " + str(timeout) + " minutes")
 	param = '-n' if platform.system().lower() == 'windows' else '-c'
 	param2 = '-w' if platform.system().lower() == 'windows' else '-W'
 	command = ['ping', param, '1', param2, '1', init_config.getPhoneIp()]
