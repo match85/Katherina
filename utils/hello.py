@@ -73,6 +73,9 @@ def getTemp():
 	hum = request.args.get('hum')
 	deviceHandler.setCurrentTemperature(1, temp)
 	deviceHandler.setCurrentHumidity(1, hum)
+	logging.info("Updating HT data:")
+	logging.info("New current temperature: " + str(temp))
+	logging.info("New current humidity: " + str(hum))
 	return temp
 
 @app.route('/monitor')

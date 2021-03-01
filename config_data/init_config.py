@@ -28,6 +28,9 @@ def getPhilipsIp():
 def getPhilipsAuth():
     return config["Philips"]["auth"]
 
+def getLightName(id):
+    return config["Philips"]["name" + str(id)]
+
 
 #Dynamo config data
 def getDynamoUrl():
@@ -41,6 +44,9 @@ def getDlinkPlugIp(id):
 
 def getDlinkPlugAuth(id):
     return config["DLink"]["plug_auth_" + str(id)]
+
+def getDlinkPlugName(id):
+    return config["DLink"]["name" + str(id)]
 
 ##Motion
 def getDlinkMotionIp():

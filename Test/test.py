@@ -10,4 +10,4 @@ from utils import deviceHandler
 
 import logging
 
-deviceHandler.setPlugState(0, "on")
+print(deviceHandler.getPlugName(1))

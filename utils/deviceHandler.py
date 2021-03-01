@@ -19,6 +19,7 @@ hubUrl = "http://" + init_config.getPhilipsIp() + "/api/" + init_config.getPhili
 
 #Phone check
 def getPhoneState(timeout):
+	logging("Checking phone state with timeout " + timeout + "minutes")
 	param = '-n' if platform.system().lower() == 'windows' else '-c'
 	param2 = '-w' if platform.system().lower() == 'windows' else '-W'
 	command = ['ping', param, '1', param2, '1', init_config.getPhoneIp()]
@@ -45,6 +46,10 @@ def getPhoneState(timeout):
 				i += 1
 			else:
 				presence = True
+	if presence:
+		logging.info("Phone detected in " + str(timeout) + "minutes")
+	else:
+		logging.info("No phone detected in " + str(timeout) + "minutes")
 	return presence
 
 #DLink
@@ -80,6 +85,9 @@ def setLightBrightness(id, level):
 	r = requests.put(url, json.dumps(data), timeout=5)
 	return 'OK'
 
+def getLightName(id):
+	return init_config.getLightName(id)
+
 ##MotionSensors
 
 def getSensorPresence(id):
@@ -110,6 +118,9 @@ def setPlugState(id, state):
 def getPlugState(id):
 	sp = SmartPlug(init_config.getDlinkPlugIp(id), init_config.getDlinkPlugAuth(id))
 	return str(sp.state)
+
+def getPlugName(id):
+	return init_config.getDlinkPlugName(id)
 
 
 #Shelly

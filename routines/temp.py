@@ -4,6 +4,7 @@ sys.path.append("..")
 from utils import databaseHandler
 from utils import deviceHandler
 
+
 min = databaseHandler.getMinTemperature(1)
 max = databaseHandler.getMaxTemperature(1)
 print(min)
