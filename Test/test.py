@@ -10,4 +10,4 @@ from utils import deviceHandler
 
 import logging
 
-print(deviceHandler.getPlugName(1))
+deviceHandler.setLightState(3, "on")

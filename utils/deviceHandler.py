@@ -69,6 +69,7 @@ def setLightState(id, state):
 		data = {"on":True}
 	else:
 		data = {"on":False}
+	logging.info("Switching " + state + " " + getLightName(id) + "(" + str(id) + ") light")
 	r = requests.put(url, json.dumps(data), timeout=5)
 	return 'OK'
 
@@ -82,6 +83,7 @@ def setLightBrightness(id, level):
 	url = hubUrl + "/lights/" + str(id) + "/state"
 
 	data = {"bri":level}
+	logging.info("Set " + getLightName(id) + "(" + str(id) + ") brightness to " + str(level))
 	r = requests.put(url, json.dumps(data), timeout=5)
 	return 'OK'
 
@@ -109,6 +111,7 @@ def getSensorLightlevel(id):
 
 def setPlugState(id, state):
 	sp = SmartPlug(init_config.getDlinkPlugIp(id), init_config.getDlinkPlugAuth(id))
+	logging.info("Turning " + state + " " + getPlugName(id) + "(" + str(id) + ")")
 	if state == 'on':
 		sp.state = ON
 	else:
