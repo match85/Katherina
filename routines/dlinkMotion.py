@@ -8,7 +8,6 @@ import logging
 last = deviceHandler.getMotionState()
 
 while True:
-	time.sleep(60)
 	now = deviceHandler.getMotionState()
 	if now > last:
 		logging.info("Motion detected on DLink")
