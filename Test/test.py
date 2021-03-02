@@ -10,4 +10,4 @@ from utils import deviceHandler
 
 import logging
 
-deviceHandler.getPhoneState(0)
+deviceHandler.setLightBrightness(3, 254)

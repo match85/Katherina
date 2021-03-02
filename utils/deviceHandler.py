@@ -32,6 +32,10 @@ def getPhoneState(timeout):
 		presence = True
 
 	if timeout == 0:
+		if presence:
+			logging.info("Phone detected in " + str(timeout) + " minutes")
+		else:
+			logging.info("No phone detected in " + str(timeout) + " minutes")
 		return presence
 
 	if response == -1:
@@ -47,9 +51,9 @@ def getPhoneState(timeout):
 			else:
 				presence = True
 	if presence:
-		logging.info("Phone detected in " + str(timeout) + "minutes")
+		logging.info("Phone detected in " + str(timeout) + " minutes")
 	else:
-		logging.info("No phone detected in " + str(timeout) + "minutes")
+		logging.info("No phone detected in " + str(timeout) + " minutes")
 	return presence
 
 #DLink
