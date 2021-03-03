@@ -35,10 +35,11 @@ def switchLight(id, switch):
 def switchState(id):
     return str(deviceHandler.getLightState(id))
 
+
 @app.route('/lights/<id>/brightness/<level>')
 def SetBrightness(id, level):
-	deviceHandler.setLightBrightness(id, level)
-	return "OK"
+    deviceHandler.setLightBrightness(id, int(level))
+    return "OK"
 
 
 @app.route('/plugs/<int:id>/<switch>')
