@@ -7,7 +7,7 @@ from datetime import date
 today = date.today()
 import time
 from utils import deviceHandler
-
+from utils import routinesHandler
 import logging
 
-deviceHandler.setLightBrightness(3, 254)
+print(routinesHandler.isEnabled("Temperature"))

@@ -86,7 +86,7 @@ def getLightState(id):
 def setLightBrightness(id, level):
 	url = hubUrl + "/lights/" + str(id) + "/state"
 
-	data = {"bri":level}
+	data = {"bri":int(level)}
 	logging.info("Set " + getLightName(id) + "(" + str(id) + ") brightness to " + str(level))
 	r = requests.put(url, json.dumps(data), timeout=5)
 	return 'OK'

@@ -38,7 +38,7 @@ def switchState(id):
 
 @app.route('/lights/<id>/brightness/<level>')
 def SetBrightness(id, level):
-    deviceHandler.setLightBrightness(id, int(level))
+    deviceHandler.setLightBrightness(id, level)
     return "OK"
 
 
