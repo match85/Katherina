@@ -10,4 +10,4 @@ from utils import deviceHandler
 from utils import routinesHandler
 import logging
 
-print(routinesHandler.isEnabled("Temperature"))
+routinesHandler.setEnabled("Temperature", True)

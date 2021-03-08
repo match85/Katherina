@@ -16,7 +16,10 @@ from utils.pyW215 import SmartPlug, ON, OFF
 from utils import databaseHandler
 
 def isEnabled(routine):
-    return routineConfig.getEnabledState(routine)
+    if routineConfig.getEnabledState(routine) == "True":
+        return True
+    else:
+        return False
 
 def setEnabled(routine, state):
     return routineConfig.setEnabledState(routine, state)

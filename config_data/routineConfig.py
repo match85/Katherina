@@ -7,6 +7,6 @@ def getEnabledState(routine):
     return config[routine]["enabled"]
 
 def setEnabledState(routine, state):
-    config[routine]["enabled"] = state
-    with open("routines_config.ini", "w") as configfile:
+    config[routine]["enabled"] = str(state)
+    with open("../config_data/routines_config.ini", "w") as configfile:
         config.write(configfile)
