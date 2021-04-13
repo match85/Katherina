@@ -3,10 +3,10 @@ import sys
 sys.path.append("..")
 from utils import databaseHandler
 from utils import deviceHandler
-from utils import routinesHandler
+from utils import routineHandler
 import logging
 
-if routinesHandler.isEnabled("Temperature"):
+if routineHandler.isEnabled("temp"):
 	min = databaseHandler.getMinTemperature(1)
 	max = databaseHandler.getMaxTemperature(1)
 	print(min)

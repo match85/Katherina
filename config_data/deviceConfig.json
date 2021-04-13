@@ -1,0 +1,66 @@
+{
+  "flask": {
+    "ip": "192.168.1.100",
+    "port": "6969"
+  },
+  "raspberry": {
+    "ip": "192.168.1.100"
+  },
+  "dynamo": {
+    "url": "http://192.168.1.100:8000"
+  },
+  "phone": {
+    "ip": "192.168.1.101"
+  },
+  "philips": {
+    "hub": {
+      "1": {
+        "ip": "192.168.1.110",
+        "auth": "XlAMIoJxhvTwYMQiefuXtjQfnfDVG4tEMOhnHVtv"
+      }
+    },
+    "light": {
+
+      "1": {
+        "name": "Kitchen"
+      },
+      "2": {
+        "name": "Hallway"
+      },
+      "3": {
+        "name": "Room"
+      },
+      "4": {
+        "name": "Bathroom"
+      }
+    }
+  },
+  "dlink": {
+    "plug": {
+      "0": {
+        "ip": "192.168.1.120",
+        "auth": "956258",
+        "name": "Air condition"
+      },
+      "1": {
+        "ip": "192.168.1.121",
+        "auth": "222595",
+        "name": "Undefined"
+      }
+    },
+    "motion": {
+      "1": {
+        "ip": "192.168.1.123",
+        "auth": "494763"
+      }
+    }
+  },
+  "shelly": {
+    "temp": {
+      "1": {
+        "ip": "192.168.1.200",
+        "name": "Room"
+      }
+    }
+  }
+}

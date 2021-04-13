@@ -16,10 +16,14 @@ from utils.pyW215 import SmartPlug, ON, OFF
 from utils import databaseHandler
 
 def isEnabled(routine):
-    if routineConfig.getEnabledState(routine) == "True":
+    if routineConfig.getRoutineData(routine, "enabled") == "True":
         return True
     else:
         return False
 
 def setEnabled(routine, state):
-    return routineConfig.setEnabledState(routine, state)
+    return routineConfig.setRoutineData(routine, "enabled", state)
+
+def getMinTemperature():
+    return routineConfig.getRoutineData("Temperature", "min_temp")
+
