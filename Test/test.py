@@ -1,6 +1,7 @@
 #python3
 import sys
 sys.path.append("..")
+import socket
 
 #from config_data import routineInfo
 from utils import deviceHandler
@@ -14,6 +15,13 @@ print(routineInfo.getRoutineData("dlinkMotion", "timeout"))
 x = bool("true")
 print(x)
 """
+def get_Host_name_IP():
+    try:
+        host_name = socket.gethostname()
+        host_ip = socket.gethostbyname(host_name)
+        print("Hostname :  ",host_name)
+        print("IP : ",host_ip)
+    except:
+        print("Unable to get Hostname and IP")
 
-print(deviceHandler.getLightState(1))
-deviceHandler.setLightState(1, "on")
+get_Host_name_IP()

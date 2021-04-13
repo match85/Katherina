@@ -18,15 +18,16 @@ def on_message(client, userdata, message):
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
-        client.connected_flag=True #set flag
-        print("connected OK")
+        client.connected_flag = True #set flag
+        #print("connected OK")
+        client.subscribe("zigbee2mqtt/0x001788010202e78e")
     else:
-        print("Bad connection Returned code=",rc)
-        client.bad_connection_flag=True
+        print("Bad connection Returned code=", rc)
+        client.bad_connection_flag = True
 
 mqttBroker ="192.168.1.100"
 mqtt.Client.connected_flag=False
-client = mqtt.Client("Broker")
+client = mqtt.Client("Broker2")
 client.on_connect = on_connect
 client.loop_start()
 print("Connecting to broker ", mqttBroker)
@@ -35,9 +36,9 @@ while not client.connected_flag:
     print("In wait loop")
     time.sleep(1)
 print("in Main Loop")
-client.subscribe("zigbee2mqtt/0x001788010202e78e")
+#client.subscribe("zigbee2mqtt/0x001788010202e78e")
 while True:
-    client.on_message=on_message
+    client.on_message = on_message
 
 
 #time.sleep(30)
