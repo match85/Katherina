@@ -3,6 +3,7 @@ import sys
 sys.path.append("..")
 import time
 import json
+import socket
 from utils import deviceHandler
 
 def on_message(client, userdata, message):
@@ -27,7 +28,7 @@ def on_connect(client, userdata, flags, rc):
 
 mqttBroker ="192.168.1.100"
 mqtt.Client.connected_flag=False
-client = mqtt.Client("Broker2")
+client = mqtt.Client(socket.gethostname())
 client.on_connect = on_connect
 client.loop_start()
 print("Connecting to broker ", mqttBroker)
@@ -36,7 +37,6 @@ while not client.connected_flag:
     print("In wait loop")
     time.sleep(1)
 print("in Main Loop")
-#client.subscribe("zigbee2mqtt/0x001788010202e78e")
 while True:
     client.on_message = on_message
 
