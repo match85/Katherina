@@ -1,4 +1,6 @@
 import paho.mqtt.client as mqtt
+import sys
+sys.path.append("..")
 import time
 import json
 from utils import deviceHandler
