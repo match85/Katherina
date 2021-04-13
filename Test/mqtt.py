@@ -10,7 +10,7 @@ def on_message(client, userdata, message):
     #print("received message: " ,str(message.payload.decode("utf-8")))
     response = json.loads(message.payload.decode("utf8"))
     print("Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
-    if bool(response['occupancy']) and (int(response['illuminance']) < 3000):
+    if bool(response['occupancy']) and (int(response['illuminance']) < 6000):
         deviceHandler.setLightState(1, "on")
         #time.sleep(60)
     else:
