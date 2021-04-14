@@ -16,5 +16,9 @@
   "dlinkMotion": {
     "enabled": "True",
     "timeout": "1"
+  },
+  "kitchenMotion": {
+    "state": "False",
+    "minIlluminance": 6000
   }
 }

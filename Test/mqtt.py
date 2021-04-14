@@ -5,12 +5,15 @@ import time
 import json
 import socket
 from utils import deviceHandler
+from config_data import routineInfo
 
 def on_message(client, userdata, message):
     #print("received message: " ,str(message.payload.decode("utf-8")))
+    #print(message.topic)
     response = json.loads(message.payload.decode("utf8"))
-    print("Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
-    if bool(response['occupancy']) and (int(response['illuminance']) < 6000):
+    now = time.localtime()
+    print(time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
+    if bool(response['occupancy']) and (int(response['illuminance']) < routineInfo.getRoutineData("kitchenMotion", "minIlluminance")):
         deviceHandler.setLightState(1, "on")
         #time.sleep(60)
     else:

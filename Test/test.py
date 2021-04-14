@@ -2,9 +2,10 @@
 import sys
 sys.path.append("..")
 import socket
-
+import time
 #from config_data import routineInfo
 from utils import deviceHandler
+from utils import databaseHandler
 
 """
 print(routineInfo.getRoutineData("temp", "min_temp"))
@@ -15,13 +16,5 @@ print(routineInfo.getRoutineData("dlinkMotion", "timeout"))
 x = bool("true")
 print(x)
 """
-def get_Host_name_IP():
-    try:
-        host_name = socket.gethostname()
-        host_ip = socket.gethostbyname(host_name)
-        print("Hostname :  ",host_name)
-        print("IP : ",host_ip)
-    except:
-        print("Unable to get Hostname and IP")
-
-get_Host_name_IP()
+databaseHandler.setMaxTemperature(1, 22.0)
+databaseHandler.setMinTemperature(1, 21.0)
