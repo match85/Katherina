@@ -16,5 +16,5 @@ print(routineInfo.getRoutineData("dlinkMotion", "timeout"))
 x = bool("true")
 print(x)
 """
-databaseHandler.setMaxTemperature(1, 22.0)
-databaseHandler.setMinTemperature(1, 21.0)
+databaseHandler.setMaxTemperature(1, 21.0)
+databaseHandler.setMinTemperature(1, 20.0)

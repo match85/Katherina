@@ -5,10 +5,16 @@ from utils import deviceHandler
 import time
 import logging
 
-last = deviceHandler.getMotionState()
-
+try:
+	last = deviceHandler.getMotionState()
+except:
+	last = 1
+now = 0
 while True:
-	now = deviceHandler.getMotionState()
+	try:
+		now = deviceHandler.getMotionState()
+	except:
+		pass
 	if now > last:
 		logging.info("Motion detected on DLink")
 		deviceHandler.setLightState(4, "on")

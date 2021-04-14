@@ -13,7 +13,7 @@ def on_message(client, userdata, message):
     if message.topic == "zigbee2mqtt/0x001788010202e78e":
         response = json.loads(message.payload.decode("utf8"))
         now = time.localtime()
-        print(time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
+        print("Kitchen: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         if bool(response['occupancy']):
             if not deviceHandler.getLightState(2):
                 if int(response['illuminance']) < routineInfo.getRoutineData("kitchenMotion", "minIlluminance"):
@@ -27,7 +27,8 @@ def on_message(client, userdata, message):
     if message.topic == "zigbee2mqtt/0x0017880102109f7e":
         response = json.loads(message.payload.decode("utf8"))
         now = time.localtime()
-        #print(time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
+        print("Hallway: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
+        print(routineInfo.getRoutineData("kitchenMotion", "minIlluminance"))
         if bool(response['occupancy']):
             if not deviceHandler.getLightState(1):
                 if int(response['illuminance']) < routineInfo.getRoutineData("kitchenMotion", "minIlluminance"):
@@ -50,6 +51,7 @@ def on_connect(client, userdata, flags, rc):
         print("Bad connection Returned code=", rc)
         client.bad_connection_flag = True
 
+#time.sleep(60)
 mqttBroker ="192.168.1.100"
 mqtt.Client.connected_flag=False
 client = mqtt.Client(socket.gethostname())
