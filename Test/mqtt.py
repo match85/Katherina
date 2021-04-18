@@ -6,10 +6,12 @@ import json
 import socket
 from utils import deviceHandler
 from config_data import routineInfo
+import importlib
 
 def on_message(client, userdata, message):
     #print("received message: " ,str(message.payload.decode("utf-8")))
     #print(message.topic)
+    importlib.reload(routineInfo)
     if message.topic == "zigbee2mqtt/0x001788010202e78e":
         response = json.loads(message.payload.decode("utf8"))
         now = time.localtime()
