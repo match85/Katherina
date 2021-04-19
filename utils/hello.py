@@ -9,6 +9,7 @@ from utils import monitor
 from flask import request
 from config_data import init_config
 import logging
+from config_data import routineInfo
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -99,6 +100,15 @@ def getTemp():
 @app.route('/monitor')
 def statusMonitor():
     response = monitor.getMonitor()
+    return response
+
+@app.route('/routine')
+def setRoutine():
+    routine = request.args.get('routine')
+    item = request.args.get('item')
+    value = request.args.get('value')
+    routineInfo.setRoutineData(routine, item, value)
+    response = routineInfo.getRoutineData(routine, item)
     return response
 
 
