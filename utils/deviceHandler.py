@@ -4,7 +4,6 @@ import platform
 import subprocess
 import time
 
-#from config_data import init_config
 from config_data import deviceInfo
 
 import requests

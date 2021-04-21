@@ -7,7 +7,6 @@ import requests
 from utils import deviceHandler
 from utils import monitor
 from flask import request
-#from config_data import init_config
 import logging
 from config_data import routineInfo
 from config_data import deviceInfo
@@ -61,24 +60,6 @@ def sensorState(id, category, element):
     r = requests.get(url)
     data = r.json()
     return str(data[category][element])
-
-
-"""
-server_address = ('192.168.1.130', 6970)
-@app.route('/roomba/<command>')
-def setRoomba(command):
-	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	try:
-		print('Connecting')
-		sock.connect(server_address)
-		print('Sending')
-		sock.sendall(command)
-	finally:
-		print('Closing')
-		sock.close()
-		return 'OK'
-"""
-
 
 @app.route('/test')
 def getParams():

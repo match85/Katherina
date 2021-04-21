@@ -1,7 +1,6 @@
 import sys
 sys.path.append("..")
 from utils import deviceHandler
-from prettyprinter import pprint
 
 def getMonitor():
     monitor = {
@@ -19,4 +18,3 @@ def getMonitor():
         "Max humidity": deviceHandler.getMaxHumidity(1)
     }
     return monitor
-#pprint(monitor)
