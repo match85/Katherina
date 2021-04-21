@@ -1,11 +1,8 @@
 #python3
 import sys
 sys.path.append("..")
-import socket
-import time
-from config_data import routineInfo
-from utils import deviceHandler
-from utils import databaseHandler
+
+from config_data import deviceInfo
 
 """
 print(routineInfo.getRoutineData("temp", "min_temp"))
@@ -16,5 +13,4 @@ print(routineInfo.getRoutineData("dlinkMotion", "timeout"))
 x = bool("true")
 print(x)
 """
-
-routineInfo.setRoutineData("kitchenMotion", "minIlluminance", 2500)
+print(deviceInfo.getPhilipsData("hub", 1, "ip"))

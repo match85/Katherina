@@ -7,9 +7,10 @@ import requests
 from utils import deviceHandler
 from utils import monitor
 from flask import request
-from config_data import init_config
+#from config_data import init_config
 import logging
 from config_data import routineInfo
+from config_data import deviceInfo
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -18,7 +19,7 @@ logging.getLogger('botocore').setLevel(logging.CRITICAL)
 
 app = Flask(__name__)
 
-hubUrl = "http://" + init_config.getPhilipsIp() + "/api/" + init_config.getPhilipsAuth()
+hubUrl = "http://" + deviceInfo.getPhilipsData("hub", "1", "ip") + "/api/" + deviceInfo.getPhilipsData("hub", "1", "auth")
 
 
 @app.route('/')

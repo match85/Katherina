@@ -22,4 +22,4 @@ def getPhilipsData(type, id, item):
     return data["philips"][type][id][item]
 
 def getDlinkData(type, id, item):
-    return data["dlink"][type][id][item]
+    return data["dlink"][type][str(id)][item]

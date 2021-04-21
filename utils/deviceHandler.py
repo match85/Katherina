@@ -4,7 +4,9 @@ import platform
 import subprocess
 import time
 
-from config_data import init_config
+#from config_data import init_config
+from config_data import deviceInfo
+
 import requests
 from datetime import date
 today = date.today()
@@ -15,14 +17,14 @@ from utils.pyS150 import MotionSensor
 from utils.pyW215 import SmartPlug, ON, OFF
 from utils import databaseHandler
 
-hubUrl = "http://" + init_config.getPhilipsIp() + "/api/" + init_config.getPhilipsAuth()
+hubUrl = "http://" + deviceInfo.getPhilipsData("hub", "1", "ip") + "/api/" + deviceInfo.getPhilipsData("hub", "1", "auth")
 
 #Phone check
 def getPhoneState(timeout):
 	logging.info("Checking phone state with timeout " + str(timeout) + " minutes")
 	param = '-n' if platform.system().lower() == 'windows' else '-c'
 	param2 = '-w' if platform.system().lower() == 'windows' else '-W'
-	command = ['ping', param, '1', param2, '1', init_config.getPhoneIp()]
+	command = ['ping', param, '1', param2, '1', deviceInfo.getPhoneIp()]
 	process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 	out, err = process.communicate()
 	response = str(out).lower().find("ttl")
@@ -60,7 +62,7 @@ def getPhoneState(timeout):
 ##Motion
 
 def getMotionState():
-    x = MotionSensor(init_config.getDlinkMotionIp(), init_config.getDlinkMotionAuth())
+    x = MotionSensor(deviceInfo.getDlinkData("motion", "1", "ip"), deviceInfo.getDlinkData("motion", "1", "auth"))
     return int(x.state)
 
 
@@ -92,7 +94,7 @@ def setLightBrightness(id, level):
 	return 'OK'
 
 def getLightName(id):
-	return init_config.getLightName(id)
+	return deviceInfo.getPhilipsData("light", str(id), "name")
 
 ##MotionSensors
 
@@ -114,7 +116,7 @@ def getSensorLightlevel(id):
 ##Plugs
 
 def setPlugState(id, state):
-	sp = SmartPlug(init_config.getDlinkPlugIp(id), init_config.getDlinkPlugAuth(id))
+	sp = SmartPlug(deviceInfo.getDlinkData("plug", id, "ip"), deviceInfo.getDlinkData("plug", id, "auth"))
 	logging.info("Turning " + state + " " + getPlugName(id) + "(" + str(id) + ")")
 	if state == 'on':
 		sp.state = ON
@@ -123,11 +125,11 @@ def setPlugState(id, state):
 	return 'OK'
 
 def getPlugState(id):
-	sp = SmartPlug(init_config.getDlinkPlugIp(id), init_config.getDlinkPlugAuth(id))
+	sp = SmartPlug(deviceInfo.getDlinkData("plug", id, "ip"), deviceInfo.getDlinkData("plug", id, "auth"))
 	return str(sp.state)
 
 def getPlugName(id):
-	return init_config.getDlinkPlugName(id)
+	return deviceInfo.getDlinkData("plug", id, "name")
 
 
 #Shelly
