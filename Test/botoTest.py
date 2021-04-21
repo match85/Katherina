@@ -2,12 +2,12 @@ import prettyprinter
 from prettyprinter import pprint
 import boto3
 from botocore.exceptions import ClientError
-from config_data import init_config
+from config_data import deviceInfo
 import logging
 logging.getLogger('boto3').setLevel(logging.CRITICAL)
 logging.getLogger('botocore').setLevel(logging.CRITICAL)
 
-dynamo_url = init_config.getDynamoUrl()
+dynamo_url = deviceInfo.getDynamoUrl()
 
 def get_data(sensor, id, dynamodb=None):
     if not dynamodb:
