@@ -10,6 +10,7 @@ from flask import request
 import logging
 from config_data import routineInfo
 from config_data import deviceInfo
+import importlib
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -54,12 +55,19 @@ def plugState(id):
     return str(deviceHandler.getPlugState(id))
 
 
+#TODO
+#Refactor this
 @app.route('/sensors/<id>/<category>/<element>')
 def sensorState(id, category, element):
     url = hubUrl + "/sensors/" + id
     r = requests.get(url)
     data = r.json()
     return str(data[category][element])
+
+@app.route('/sensors/motion/<id>')
+def motionState(id):
+    importlib.reload(deviceInfo)
+    return str(deviceInfo.getPhilipsData("motion", id, "state"))
 
 @app.route('/test')
 def getParams():

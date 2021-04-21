@@ -6,6 +6,7 @@ import json
 import socket
 from utils import deviceHandler
 from config_data import routineInfo
+from config_data import deviceInfo
 import importlib
 
 def on_message(client, userdata, message):
@@ -14,6 +15,7 @@ def on_message(client, userdata, message):
     importlib.reload(routineInfo)
     if message.topic == "zigbee2mqtt/0x001788010202e78e":
         response = json.loads(message.payload.decode("utf8"))
+        deviceInfo.setPhilipsData("motion", 1, "state", response['occupancy'])
         now = time.localtime()
         print("Kitchen: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         if bool(response['occupancy']):
@@ -28,6 +30,7 @@ def on_message(client, userdata, message):
                 deviceHandler.setLightState(1, "off")
     if message.topic == "zigbee2mqtt/0x0017880102109f7e":
         response = json.loads(message.payload.decode("utf8"))
+        deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
         now = time.localtime()
         print("Hallway: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         print(routineInfo.getRoutineData("kitchenMotion", "minIlluminance"))

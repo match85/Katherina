@@ -13,4 +13,5 @@ print(routineInfo.getRoutineData("dlinkMotion", "timeout"))
 x = bool("true")
 print(x)
 """
-print(deviceInfo.getPhilipsData("hub", 1, "ip"))
+deviceInfo.setPhilipsData("motion", 1, "state", "True")
+print(deviceInfo.getPhilipsData("motion", 1, "state"))

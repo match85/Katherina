@@ -20,7 +20,6 @@
       }
     },
     "light": {
-
       "1": {
         "name": "Kitchen"
       },
@@ -32,6 +31,18 @@
       },
       "4": {
         "name": "Bathroom"
+      }
+    },
+    "motion": {
+      "1": {
+        "state": false,
+        "name": "door",
+        "zigbeeName": "zigbee2mqtt/0x001788010202e78e"
+      },
+      "2": {
+        "state": false,
+        "name": "room",
+        "zigbeeName": "zigbee2mqtt/0x0017880102109f7e"
       }
     }
   },
