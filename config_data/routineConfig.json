@@ -19,6 +19,6 @@
   },
   "kitchenMotion": {
     "state": "False",
-    "minIlluminance": 2000
+    "minIlluminance": 1500
   }
 }
