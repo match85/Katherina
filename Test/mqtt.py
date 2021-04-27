@@ -4,6 +4,7 @@ sys.path.append("..")
 import time
 import json
 import socket
+import requests
 from utils import deviceHandler
 from config_data import routineInfo
 from config_data import deviceInfo
@@ -35,6 +36,7 @@ def on_message(client, userdata, message):
         print("Hallway: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         print(routineInfo.getRoutineData("kitchenMotion", "minIlluminance"))
         if bool(response['occupancy']):
+            requests.get(deviceHandler.getTabletUrl() + "motion=true")
             if not deviceHandler.getLightState(1):
                 if int(response['illuminance']) < routineInfo.getRoutineData("kitchenMotion", "minIlluminance"):
                     deviceHandler.setLightState(2, "on")

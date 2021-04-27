@@ -19,6 +19,12 @@ def getDynamoUrl():
 def getPhoneIp():
     return data["phone"]["ip"]
 
+def getTabletIp():
+    return data["tablet"]["ip"]
+
+def getTabletPort():
+    return data["tablet"]["port"]
+
 def getPhilipsData(type, id, item):
     return data["philips"][type][str(id)][item]
 

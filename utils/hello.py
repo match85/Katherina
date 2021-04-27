@@ -54,8 +54,6 @@ def switchPlug(id, switch):
 def plugState(id):
     return str(deviceHandler.getPlugState(id))
 
-
-#TODO
 #Refactor this
 @app.route('/sensors/<id>/<category>/<element>')
 def sensorState(id, category, element):
@@ -103,4 +101,4 @@ def setRoutine():
 
 
 if __name__ == '__main__':
-    app.run(debug=False, port=6969, host='0.0.0.0')
+    app.run(debug=True, port=6969, host='0.0.0.0')

@@ -163,3 +163,6 @@ def getMinHumidity(id):
 
 def getMaxHumidity(id):
 	return databaseHandler.getMaxHumidity(id)
+
+def getTabletUrl():
+	return "http://" + deviceInfo.getTabletIp() + ":" + deviceInfo.getTabletPort() + "/?"
