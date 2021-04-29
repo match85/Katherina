@@ -36,7 +36,10 @@ def on_message(client, userdata, message):
         print("Hallway: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         print(routineInfo.getRoutineData("kitchenMotion", "minIlluminance"))
         if bool(response['occupancy']):
-            requests.get(deviceHandler.getTabletUrl() + "motion=true")
+            try:
+                requests.get(deviceHandler.getTabletUrl() + "motion=true")
+            except:
+                pass
             if not deviceHandler.getLightState(1):
                 if int(response['illuminance']) < routineInfo.getRoutineData("kitchenMotion", "minIlluminance"):
                     deviceHandler.setLightState(2, "on")
