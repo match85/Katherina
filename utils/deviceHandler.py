@@ -5,7 +5,7 @@ import subprocess
 import time
 
 from config_data import deviceInfo
-
+from utils import deviceHandler
 import requests
 from datetime import date
 today = date.today()
@@ -76,6 +76,10 @@ def setLightState(id, state):
 		data = {"on":False}
 	logging.info("Switching " + state + " " + getLightName(id) + "(" + str(id) + ") light")
 	r = requests.put(url, json.dumps(data), timeout=5)
+	try:
+		requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
+	except:
+		pass
 	return 'OK'
 
 def getLightState(id):
