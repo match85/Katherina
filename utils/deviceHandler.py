@@ -125,6 +125,10 @@ def setPlugState(id, state):
 		sp.state = ON
 	else:
 		sp.state = OFF
+	try:
+		requests.get(deviceHandler.getTabletUrl() + "plug" + str(id) + "=" + str(state))
+	except:
+		pass
 	return 'OK'
 
 def getPlugState(id):
