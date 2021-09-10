@@ -5,6 +5,7 @@ import subprocess
 import time
 
 from config_data import deviceInfo
+from config_data import routineInfo
 from utils import deviceHandler
 import requests
 from datetime import date
@@ -14,7 +15,7 @@ logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime
 
 from utils.pyS150 import MotionSensor
 from utils.pyW215 import SmartPlug, ON, OFF
-from utils import databaseHandler
+#from utils import databaseHandler
 
 hubUrl = "http://" + deviceInfo.getPhilipsData("hub", "1", "ip") + "/api/" + deviceInfo.getPhilipsData("hub", "1", "auth")
 
@@ -142,35 +143,42 @@ def getPlugName(id):
 #Shelly
 ##H&T Sensor
 
-def getCurrentTemperature(id):
-	return databaseHandler.getCurrentTemperature(id)
+def getCurrentTemperature():
+	return routineInfo.getRoutineData("temp", "current_temp")
 
-def getMinTemperature(id):
-	return databaseHandler.getMinTemperature(id)
+def getMinTemperature():
+	return routineInfo.getRoutineData("temp", "min_temp")
 
-def getMaxTemperature(id):
-	return databaseHandler.getMaxTemperature(id)
+def getMaxTemperature():
+	return routineInfo.getRoutineData("temp", "max_temp")
 
-def setCurrentTemperature(id, value):
-	return databaseHandler.setCurrentTemperature(id, value)
+def setCurrentTemperature(value):
+	return routineInfo.setRoutineData("temp", "current_temp", str(value))
 
-def setMinTemperature(id, value):
-	return databaseHandler.setMinTemperature(id, value)
+def setMinTemperature(value):
+	return routineInfo.setRoutineData("temp", "min_temp", str(value))
 
-def setMaxTemperature(id, value):
-	return databaseHandler.getMaxTemperature(id, value)
+def setMaxTemperature(value):
+	return routineInfo.setRoutineData("temp", "max_temp", str(value))
 
-def setCurrentHumidity(id, value):
-	return databaseHandler.setCurrentHumidity(id, value)
+def setCurrentHumidity(value):
+	return routineInfo.setRoutineData("temp", "current_hum", str(value))
 
-def getCurrentHumidity(id):
-	return databaseHandler.getCurrentHumidity(id)
+def getCurrentHumidity():
+	return routineInfo.getRoutineData("temp", "current_hum")
 
-def getMinHumidity(id):
-	return databaseHandler.getMinHumidity(id)
+def getMinHumidity():
+	return routineInfo.getRoutineData("temp", "min_hum")
 
-def getMaxHumidity(id):
-	return databaseHandler.getMaxHumidity(id)
+def getMaxHumidity():
+	return routineInfo.getRoutineData("temp", "max_hum")
+
+def setMinHumidity(value):
+	return routineInfo.setRoutineData("temp", "min_hum", str(value))
+
+def setMaxHumidity(value):
+	return routineInfo.setRoutineData("temp", "max_hum", str(value))
+
 
 def getTabletUrl():
 	return "http://" + deviceInfo.getTabletIp() + ":" + deviceInfo.getTabletPort() + "/?"

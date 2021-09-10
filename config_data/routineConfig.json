@@ -1,6 +1,8 @@
 {
   "temp": {
     "enabled": "True",
+    "current_temp": "20",
+    "current_hum": "50",
     "min_temp": "22.0",
     "max_temp": "23.0",
     "min_hum": "40",

@@ -10,11 +10,11 @@ def getMonitor():
         "Light 2 state": deviceHandler.getLightState(2),
         "Light 3 state": deviceHandler.getLightState(3),
         "Light 4 state": deviceHandler.getLightState(4),
-        "Current temperature": deviceHandler.getCurrentTemperature(1),
-        "Min temperature": deviceHandler.getMinTemperature(1),
-        "Max temperature": deviceHandler.getMaxTemperature(1),
-        "Current humididy": deviceHandler.getCurrentHumidity(1),
-        "Min humidity": deviceHandler.getMinHumidity(1),
-        "Max humidity": deviceHandler.getMaxHumidity(1)
+        "Current temperature": deviceHandler.getCurrentTemperature(),
+        "Min temperature": deviceHandler.getMinTemperature(),
+        "Max temperature": deviceHandler.getMaxTemperature(),
+        "Current humididy": deviceHandler.getCurrentHumidity(),
+        "Min humidity": deviceHandler.getMinHumidity(),
+        "Max humidity": deviceHandler.getMaxHumidity()
     }
     return monitor
