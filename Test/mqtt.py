@@ -10,6 +10,12 @@ from config_data import routineInfo
 from config_data import deviceInfo
 import importlib
 
+from datetime import date
+today = date.today()
+import logging
+logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S', level=logging.INFO)
+
+
 def on_message(client, userdata, message):
     #print("received message: " ,str(message.payload.decode("utf-8")))
     #print(message.topic)
@@ -20,6 +26,7 @@ def on_message(client, userdata, message):
         now = time.localtime()
         print("Kitchen: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         if bool(response['occupancy']):
+            logging.info("Motion detected in kitchen")
             if not deviceHandler.getLightState(2):
                 if int(response['illuminance']) < routineInfo.getRoutineData("kitchenMotion", "minIlluminance"):
                     deviceHandler.setLightState(1, "on")
@@ -36,6 +43,7 @@ def on_message(client, userdata, message):
         print("Hallway: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         print(routineInfo.getRoutineData("kitchenMotion", "minIlluminance"))
         if bool(response['occupancy']):
+            logging.info("Motion detected in hallway")
             try:
                 requests.get(deviceHandler.getTabletUrl() + "motion=true")
             except:
