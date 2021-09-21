@@ -26,7 +26,7 @@ def on_message(client, userdata, message):
         now = time.localtime()
         print("Kitchen: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         if bool(response['occupancy']):
-            logging.info("Motion detected in kitchen")
+            #logging.info("Motion detected in kitchen")
             if not deviceHandler.getLightState(2):
                 if int(response['illuminance']) < routineInfo.getRoutineData("kitchenMotion", "minIlluminance"):
                     deviceHandler.setLightState(1, "on")
@@ -34,7 +34,7 @@ def on_message(client, userdata, message):
                 deviceHandler.setLightState(1, "on")
             #time.sleep(60)
         else:
-            logging.info("No motion detected in kitchen")
+            #logging.info("No motion detected in kitchen")
             if deviceHandler.getLightState(1) and not bool(response['occupancy']):
                 deviceHandler.setLightState(1, "off")
     if message.topic == "zigbee2mqtt/0x0017880102109f7e":
@@ -44,7 +44,7 @@ def on_message(client, userdata, message):
         print("Hallway: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         print(routineInfo.getRoutineData("kitchenMotion", "minIlluminance"))
         if bool(response['occupancy']):
-            logging.info("Motion detected in hallway")
+            #logging.info("Motion detected in hallway")
             try:
                 requests.get(deviceHandler.getTabletUrl() + "motion=true")
             except:
@@ -56,7 +56,7 @@ def on_message(client, userdata, message):
                 deviceHandler.setLightState(2, "on")
         # time.sleep(60)
         else:
-            logging.info("No motion detected in hallway")
+            #logging.info("No motion detected in hallway")
             if deviceHandler.getLightState(2) and not bool(response['occupancy']):
                 deviceHandler.setLightState(2, "off")
 
