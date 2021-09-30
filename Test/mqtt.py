@@ -27,16 +27,19 @@ def on_message(client, userdata, message):
         print("Kitchen: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         if bool(response['occupancy']):
             #logging.info("Motion detected in kitchen")
+            deviceInfo.setPhilipsData("motion", 1, "last", time.time())
             if not deviceHandler.getLightState(2):
                 if int(response['illuminance']) < routineInfo.getRoutineData("kitchenMotion", "minIlluminance"):
                     deviceHandler.setLightState(1, "on")
             else:
                 deviceHandler.setLightState(1, "on")
             #time.sleep(60)
+        '''
         else:
             #logging.info("No motion detected in kitchen")
             if deviceHandler.getLightState(1) and not bool(response['occupancy']):
                 deviceHandler.setLightState(1, "off")
+        '''
     if message.topic == "zigbee2mqtt/0x0017880102109f7e":
         response = json.loads(message.payload.decode("utf8"))
         deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
@@ -45,6 +48,7 @@ def on_message(client, userdata, message):
         print(routineInfo.getRoutineData("kitchenMotion", "minIlluminance"))
         if bool(response['occupancy']):
             #logging.info("Motion detected in hallway")
+            deviceInfo.setPhilipsData("motion", 2, "last", time.time())
             try:
                 requests.get(deviceHandler.getTabletUrl() + "motion=true")
             except:
@@ -55,11 +59,12 @@ def on_message(client, userdata, message):
             else:
                 deviceHandler.setLightState(2, "on")
         # time.sleep(60)
+        '''
         else:
             #logging.info("No motion detected in hallway")
             if deviceHandler.getLightState(2) and not bool(response['occupancy']):
                 deviceHandler.setLightState(2, "off")
-
+        '''
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
