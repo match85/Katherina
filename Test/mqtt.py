@@ -59,12 +59,10 @@ def on_message(client, userdata, message):
             else:
                 deviceHandler.setLightState(2, "on")
         # time.sleep(60)
-        '''
         else:
             #logging.info("No motion detected in hallway")
             if deviceHandler.getLightState(2) and not bool(response['occupancy']):
                 deviceHandler.setLightState(2, "off")
-        '''
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
