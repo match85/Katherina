@@ -18,8 +18,8 @@ logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime
 
 def on_message(client, userdata, message):
     #print("received message: " ,str(message.payload.decode("utf-8")))
-    #print(message.topic)
     importlib.reload(routineInfo)
+    #print(message.topic)
     if message.topic == "zigbee2mqtt/0x001788010202e78e":
         response = json.loads(message.payload.decode("utf8"))
         deviceInfo.setPhilipsData("motion", 1, "state", response['occupancy'])
@@ -73,6 +73,7 @@ def on_connect(client, userdata, flags, rc):
         #print("connected OK")
         client.subscribe("zigbee2mqtt/0x001788010202e78e")
         client.subscribe("zigbee2mqtt/0x0017880102109f7e")
+        client.subscribe("zigbee2mqtt/0x00158d0006d304fe")
     else:
         print("Bad connection Returned code=", rc)
         client.bad_connection_flag = True
