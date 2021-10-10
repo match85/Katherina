@@ -64,6 +64,9 @@ def on_message(client, userdata, message):
             if deviceHandler.getLightState(2) and not bool(response['occupancy']):
                 deviceHandler.setLightState(2, "off")
 
+    if message.topic == "zigbee2mqtt/0x00158d0006d304fe":
+        logging.info("Door sensor")
+
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         client.connected_flag = True #set flag
