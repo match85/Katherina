@@ -15,12 +15,15 @@ today = date.today()
 import logging
 logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S', level=logging.INFO)
 
+kitchenMotion = deviceInfo.getPhilipsData('motion', 1, 'zigbeeName')
+hallwayMotion = deviceInfo.getPhilipsData('motion', 2, 'zigbeeName')
+#doorSensor = deviceInfo.getPhilipsData('motion', 1, 'zigbeeName')
 
 def on_message(client, userdata, message):
     #print("received message: " ,str(message.payload.decode("utf-8")))
     importlib.reload(routineInfo)
     #print(message.topic)
-    if message.topic == "zigbee2mqtt/0x001788010202e78e":
+    if message.topic == kitchenMotion:
         response = json.loads(message.payload.decode("utf8"))
         deviceInfo.setPhilipsData("motion", 1, "state", response['occupancy'])
         now = time.localtime()
@@ -40,7 +43,7 @@ def on_message(client, userdata, message):
             if deviceHandler.getLightState(1) and not bool(response['occupancy']):
                 deviceHandler.setLightState(1, "off")
         '''
-    if message.topic == "zigbee2mqtt/0x0017880102109f7e":
+    if message.topic == hallwayMotion:
         response = json.loads(message.payload.decode("utf8"))
         deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
         now = time.localtime()
@@ -71,8 +74,8 @@ def on_connect(client, userdata, flags, rc):
     if rc == 0:
         client.connected_flag = True #set flag
         #print("connected OK")
-        client.subscribe("zigbee2mqtt/0x001788010202e78e")
-        client.subscribe("zigbee2mqtt/0x0017880102109f7e")
+        client.subscribe(kitchenMotion)
+        client.subscribe(hallwayMotion)
         client.subscribe("zigbee2mqtt/0x00158d0006d304fe")
     else:
         print("Bad connection Returned code=", rc)
