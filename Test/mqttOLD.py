@@ -18,7 +18,7 @@ logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime
 
 kitchenMotion = deviceInfo.getPhilipsData('motion', 1, 'zigbeeName')
 hallwayMotion = deviceInfo.getPhilipsData('motion', 2, 'zigbeeName')
-doorSensor = deviceInfo.getXiaomiData('door', 1, 'zigbeeName')
+#doorSensor = deviceInfo.getPhilipsData('motion', 1, 'zigbeeName')
 
 def on_message(client, userdata, message):
     #print("received message: " ,str(message.payload.decode("utf-8")))
@@ -26,14 +26,12 @@ def on_message(client, userdata, message):
     #print(message.topic)
     if message.topic == kitchenMotion:
         response = json.loads(message.payload.decode("utf8"))
-        #deviceInfo.setPhilipsData("motion", 1, "state", response['occupancy'])
-        statusHandler.setMotionState(1, response['occupancy'])
+        deviceInfo.setPhilipsData("motion", 1, "state", response['occupancy'])
         now = time.localtime()
         print("Kitchen: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         if bool(response['occupancy']):
             #logging.info("Motion detected in kitchen")
-            #deviceInfo.setPhilipsData("motion", 1, "last", time.time())
-            statusHandler.setMotionLast(1, time.time())
+            deviceInfo.setPhilipsData("motion", 1, "last", time.time())
             if not deviceHandler.getLightState(2):
                 if int(response['illuminance']) < routineInfo.getRoutineData("kitchenMotion", "minIlluminance"):
                     deviceHandler.setLightState(1, "on")
@@ -48,15 +46,13 @@ def on_message(client, userdata, message):
         '''
     if message.topic == hallwayMotion:
         response = json.loads(message.payload.decode("utf8"))
-        #deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
-        statusHandler.setMotionState(2, response['occupancy'])
+        deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
         now = time.localtime()
         print("Hallway: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         print(routineInfo.getRoutineData("kitchenMotion", "minIlluminance"))
         if bool(response['occupancy']):
             #logging.info("Motion detected in hallway")
-            #deviceInfo.setPhilipsData("motion", 2, "last", time.time())
-            statusHandler.setMotionLast(2, time.time())
+            deviceInfo.setPhilipsData("motion", 2, "last", time.time())
             try:
                 requests.get(deviceHandler.getTabletUrl() + "motion=true")
             except:
@@ -72,10 +68,8 @@ def on_message(client, userdata, message):
             if deviceHandler.getLightState(2) and not bool(response['occupancy']):
                 deviceHandler.setLightState(2, "off")
 
-    if message.topic == doorSensor:
-        response = json.loads(message.payload.decode("utf8"))
-        statusHandler.setDoorState(1, response['contact'])
-        logging.info("Door sensor " + str(response['contact']))
+    if message.topic == "zigbee2mqtt/0x00158d0006d304fe":
+        logging.info("Door sensor")
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -83,7 +77,7 @@ def on_connect(client, userdata, flags, rc):
         #print("connected OK")
         client.subscribe(kitchenMotion)
         client.subscribe(hallwayMotion)
-        client.subscribe(doorSensor)
+        client.subscribe("zigbee2mqtt/0x00158d0006d304fe")
     else:
         print("Bad connection Returned code=", rc)
         client.bad_connection_flag = True
