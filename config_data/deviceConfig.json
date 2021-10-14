@@ -39,16 +39,12 @@
     },
     "motion": {
       "1": {
-        "state": false,
         "name": "Kitchen",
-        "zigbeeName": "zigbee2mqtt/kitchen_motion",
-        "last": 1633874805.2103937
+        "zigbeeName": "zigbee2mqtt/kitchen_motion"
       },
       "2": {
-        "state": false,
         "name": "Hallway",
-        "zigbeeName": "zigbee2mqtt/hallway_motion",
-        "last": 1633875872.2662988
+        "zigbeeName": "zigbee2mqtt/hallway_motion"
       }
     }
   },
@@ -77,6 +73,14 @@
       "1": {
         "ip": "192.168.1.200",
         "name": "Room"
+      }
+    }
+  },
+  "xiaomi": {
+    "door": {
+      "1": {
+        "zigbeeName": "zigbee2mqtt/0x00158d0006d304fe",
+        "name": "doorSensor"
       }
     }
   }

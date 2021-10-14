@@ -4,6 +4,6 @@ sys.path.append("..")
 import time
 from config_data import deviceInfo
 from utils import deviceHandler
+from alexa_client import AlexaClient
 
-deviceInfo.setPhilipsData("motion", 1, "last", time.time())
-print(time.time())
+print(deviceHandler.getPlugState(1))

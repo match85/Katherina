@@ -31,7 +31,12 @@ def getPhilipsData(type, id, item):
 def getDlinkData(type, id, item):
     return data["dlink"][type][str(id)][item]
 
+'''
 def setPhilipsData(type, id, item, value):
     data["philips"][type][str(id)][item] = value
     with open("../config_data/deviceConfig.json", "w") as json_file:
         json.dump(data, json_file)
+'''
+
+def getXiaomiData(type, id, item):
+    return data["xiaomi"][type][str(id)][item]
