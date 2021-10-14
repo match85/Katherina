@@ -18,7 +18,7 @@ def setMotionState(id, value):
 
 
 def getMotionLast(id):
-    return data["motion"][str(id)]["state"]
+    return data["motion"][str(id)]["last"]
 
 
 def setMotionLast(id, value):
