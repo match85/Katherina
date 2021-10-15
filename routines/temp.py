@@ -17,9 +17,13 @@ if routineHandler.isEnabled("temp"):
 	else:
 		value = statusHandler.getCurrentTemp(1)
 		print(value)
-		if value <= min:
-			logging.info("Low temperature detected")
-			deviceHandler.setPlugState(0, "on")
+		if statusHandler.getDoorState(1):
+			if value <= min:
+				logging.info("Low temperature detected")
+				deviceHandler.setPlugState(0, "on")
+		else:
+			logging.info("Low temperature but door not closed.")
+			deviceHandler.setPlugState(0, "off")
 		if value >= max:
 			logging.info("High temperature detected")
 			deviceHandler.setPlugState(0, "off")
