@@ -14,7 +14,7 @@ def getMonitor():
         "Current temperature": statusHandler.getCurrentTemp(1),
         "Min temperature": deviceHandler.getMinTemperature(),
         "Max temperature": deviceHandler.getMaxTemperature(),
-        "Current humididy": statusHandler.getCurrentHum(),
+        "Current humididy": statusHandler.getCurrentHum(1),
         "Min humidity": deviceHandler.getMinHumidity(),
         "Max humidity": deviceHandler.getMaxHumidity()
     }
