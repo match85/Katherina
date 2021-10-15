@@ -1,9 +1,9 @@
 #python3
 import sys
 sys.path.append("..")
-#from utils import databaseHandler
 from utils import deviceHandler
 from utils import routineHandler
+from utils import statusHandler
 import logging
 
 if routineHandler.isEnabled("temp"):
@@ -15,7 +15,7 @@ if routineHandler.isEnabled("temp"):
 	if not r:
 		deviceHandler.setPlugState(0, "off")
 	else:
-		value = deviceHandler.getCurrentTemperature()
+		value = statusHandler.getCurrentTemp(1)
 		print(value)
 		if value <= min:
 			logging.info("Low temperature detected")

@@ -6,6 +6,7 @@ from flask import Flask
 import requests
 from utils import deviceHandler
 from utils import monitor
+from utils import statusHandler
 from flask import request
 import logging
 from config_data import routineInfo
@@ -77,8 +78,10 @@ def getParams():
 def getTemp():
     temp = request.args.get('temp')
     hum = request.args.get('hum')
-    deviceHandler.setCurrentTemperature(temp)
-    deviceHandler.setCurrentHumidity(hum)
+    #deviceHandler.setCurrentTemperature(temp)
+    #deviceHandler.setCurrentHumidity(hum)
+    statusHandler.setCurrentTemp(1, temp)
+    statusHandler.setCurrentHum(1, hum)
     logging.info("Updating HT data:")
     logging.info("New current temperature: " + str(temp))
     logging.info("New current humidity: " + str(hum))

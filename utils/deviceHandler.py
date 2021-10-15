@@ -152,17 +152,11 @@ def getMinTemperature():
 def getMaxTemperature():
 	return routineInfo.getRoutineData("temp", "max_temp")
 
-def setCurrentTemperature(value):
-	return routineInfo.setRoutineData("temp", "current_temp", str(value))
-
 def setMinTemperature(value):
 	return routineInfo.setRoutineData("temp", "min_temp", str(value))
 
 def setMaxTemperature(value):
 	return routineInfo.setRoutineData("temp", "max_temp", str(value))
-
-def setCurrentHumidity(value):
-	return routineInfo.setRoutineData("temp", "current_hum", str(value))
 
 def getCurrentHumidity():
 	return routineInfo.getRoutineData("temp", "current_hum")

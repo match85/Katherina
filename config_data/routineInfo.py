@@ -12,13 +12,3 @@ def setRoutineData(routine, item, value):
         json.dump(data, json_file)
 
 
-
-"""
-update = {
-    "temp": {
-        "enabled": "True"}
-}
-
-print(update)
-"""
-
