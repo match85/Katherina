@@ -57,15 +57,15 @@ def on_message(client, userdata, message):
             #logging.info("Motion detected in hallway")
             #deviceInfo.setPhilipsData("motion", 2, "last", time.time())
             statusHandler.setMotionLast(2, time.time())
-            try:
-                requests.get(deviceHandler.getTabletUrl() + "motion=true")
-            except:
-                pass
             if not deviceHandler.getLightState(1):
                 if int(response['illuminance']) < routineInfo.getRoutineData("kitchenMotion", "minIlluminance"):
                     deviceHandler.setLightState(2, "on")
             else:
                 deviceHandler.setLightState(2, "on")
+            try:
+                requests.get(deviceHandler.getTabletUrl() + "motion=true")
+            except:
+                pass
         # time.sleep(60)
         else:
             #logging.info("No motion detected in hallway")
