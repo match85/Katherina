@@ -76,7 +76,6 @@ def on_message(client, userdata, message):
     if message.topic == doorSensor:
         response = json.loads(message.payload.decode("utf8"))
         statusHandler.setDoorState(1, response['contact'])
-        print('Door sensor')
         logging.info("Door sensor " + str(response['contact']))
 
     if message.topic == switch:
@@ -86,6 +85,16 @@ def on_message(client, userdata, message):
                 deviceHandler.setLightState(3, 'on')
             else:
                 deviceHandler.setLightState(3, 'off')
+
+        if response['action'] == 'off-press':
+            print('off button')
+
+        if response['action'] == 'up-press':
+            print('up button')
+
+        if response['action'] == 'down-press':
+            print('down button')
+
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
