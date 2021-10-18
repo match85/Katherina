@@ -19,6 +19,7 @@ logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime
 kitchenMotion = deviceInfo.getPhilipsData('motion', 1, 'zigbeeName')
 hallwayMotion = deviceInfo.getPhilipsData('motion', 2, 'zigbeeName')
 doorSensor = deviceInfo.getXiaomiData('door', 1, 'zigbeeName')
+switch = deviceInfo.getPhilipsData('switch', 1, 'zigbeeName')
 
 def on_message(client, userdata, message):
     #print("received message: " ,str(message.payload.decode("utf-8")))
@@ -75,7 +76,16 @@ def on_message(client, userdata, message):
     if message.topic == doorSensor:
         response = json.loads(message.payload.decode("utf8"))
         statusHandler.setDoorState(1, response['contact'])
+        print('Door sensor')
         logging.info("Door sensor " + str(response['contact']))
+
+    if message.topic == switch:
+        response = json.loads(message.payload.decode("utf8"))
+        if response['action'] == 'on-press':
+            if not deviceHandler.getLightState(3):
+                deviceHandler.setLightState(3, 'on')
+            else:
+                deviceHandler.setLightState(3, 'off')
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -84,6 +94,7 @@ def on_connect(client, userdata, flags, rc):
         client.subscribe(kitchenMotion)
         client.subscribe(hallwayMotion)
         client.subscribe(doorSensor)
+        client.subscribe(switch)
     else:
         print("Bad connection Returned code=", rc)
         client.bad_connection_flag = True

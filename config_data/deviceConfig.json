@@ -46,6 +46,12 @@
         "name": "Hallway",
         "zigbeeName": "zigbee2mqtt/hallway_motion"
       }
+    },
+    "switch": {
+      "1": {
+        "name": "Switch",
+        "zigbeeName": "zigbee2mqtt/switch"
+      }
     }
   },
   "dlink": {
@@ -79,7 +85,7 @@
   "xiaomi": {
     "door": {
       "1": {
-        "zigbeeName": "zigbee2mqtt/0x00158d0006d304fe",
+        "zigbeeName": "zigbee2mqtt/door",
         "name": "doorSensor"
       }
     }
