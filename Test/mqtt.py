@@ -80,21 +80,23 @@ def on_message(client, userdata, message):
 
     if message.topic == switch:
         response = json.loads(message.payload.decode("utf8"))
-        print(response)
-        if response['action'] == 'on-press':
-            if not deviceHandler.getLightState(3):
-                deviceHandler.setLightState(3, 'on')
-            else:
-                deviceHandler.setLightState(3, 'off')
+        try:
+            if response['action'] == 'on-press':
+                if not deviceHandler.getLightState(3):
+                    deviceHandler.setLightState(3, 'on')
+                else:
+                    deviceHandler.setLightState(3, 'off')
 
-        if response['action'] == 'off-press':
-            print('off button')
+            if response['action'] == 'off-press':
+                print('off button')
 
-        if response['action'] == 'up-press':
-            print('up button')
+            if response['action'] == 'up-press':
+                print('up button')
 
-        if response['action'] == 'down-press':
-            print('down button')
+            if response['action'] == 'down-press':
+                print('down button')
+        except:
+            pass
 
 
 def on_connect(client, userdata, flags, rc):
