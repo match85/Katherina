@@ -9,6 +9,7 @@ from config_data import routineInfo
 from utils import deviceHandler
 import requests
 from datetime import date
+from utils import statusHandler
 today = date.today()
 import logging
 logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S', level=logging.INFO)
@@ -36,8 +37,11 @@ def getPhoneState(timeout):
 	if timeout == 0:
 		if presence:
 			logging.info("Phone detected in " + str(timeout) + " minutes")
+			statusHandler.setPhoneLast(time.time())
+			statusHandler.setPhoneState(True)
 		else:
 			logging.info("No phone detected in " + str(timeout) + " minutes")
+			statusHandler.setPhoneState(False)
 		return presence
 
 	if response == -1:
@@ -53,9 +57,13 @@ def getPhoneState(timeout):
 			else:
 				presence = True
 	if presence:
+		statusHandler.setPhoneLast(time.time())
+		statusHandler.setPhoneState(True)
 		logging.info("Phone detected in " + str(timeout) + " minutes")
 	else:
+		statusHandler.setPhoneState(False)
 		logging.info("No phone detected in " + str(timeout) + " minutes")
+
 	return presence
 
 #DLink

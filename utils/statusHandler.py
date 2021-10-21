@@ -103,3 +103,27 @@ def setDoorState(id, value):
     data["door"][str(id)]["contact"] = value
     with open("../config_data/status.json", "w") as json_file:
         json.dump(data, json_file)
+
+def setPhoneLast(last):
+    with open("../config_data/status.json") as json_file:
+        data = json.load(json_file)
+    data['phone']['last'] = last
+    with open("../config_data/status.json", "w") as json_file:
+        json.dump(data, json_file)
+
+def getPhoneLast():
+    with open("../config_data/status.json") as json_file:
+        data = json.load(json_file)
+    return data['phone']['last']
+
+def setPhoneState(state):
+    with open("../config_data/status.json") as json_file:
+        data = json.load(json_file)
+    data['phone']['state'] = state
+    with open("../config_data/status.json", "w") as json_file:
+        json.dump(data, json_file)
+
+def getPhoneState():
+    with open("../config_data/status.json") as json_file:
+        data = json.load(json_file)
+    return data['phone']['state']
