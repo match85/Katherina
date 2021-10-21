@@ -8,7 +8,7 @@ import time
 
 currentTime = datetime.datetime.now().hour
 lastSeen = statusHandler.getPhoneLast()
-while not statusHandler.getPhoneState() and (currentTime >= 17):
+while not statusHandler.getPhoneState() and ((currentTime >= 17) or (currentTime <= 5)):
     if statusHandler.getPhoneState() and ((lastSeen + 1800) < time.time()):
         deviceHandler.setLightState(3, 'on')
 
