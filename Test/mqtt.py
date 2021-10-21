@@ -80,6 +80,7 @@ def on_message(client, userdata, message):
 
     if message.topic == switch:
         response = json.loads(message.payload.decode("utf8"))
+        print(response)
         if response['action'] == 'on-press':
             if not deviceHandler.getLightState(3):
                 deviceHandler.setLightState(3, 'on')
