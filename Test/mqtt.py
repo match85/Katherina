@@ -75,6 +75,7 @@ def on_message(client, userdata, message):
 
     if message.topic == doorSensor:
         response = json.loads(message.payload.decode("utf8"))
+        print(response)
         statusHandler.setDoorState(1, response['contact'])
         logging.info("Door sensor " + str(response['contact']))
 
