@@ -15,7 +15,7 @@ def getMotionState(id):
 
 def setMotionState(id, value):
     with open("../config_data/status.json") as json_file:
-        data = json.loads(json_file)
+        data = json.load(json_file)
     data["motion"][str(id)]["state"] = value
     with open("../config_data/status.json", "w") as json_file:
         json.dump(data, json_file)
