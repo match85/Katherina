@@ -26,7 +26,7 @@ def on_message(client, userdata, message):
     importlib.reload(routineInfo)
     #print(message.topic)
     if message.topic == kitchenMotion:
-        response = json.load(message.payload.decode("utf8"))
+        response = json.loads(message.payload.decode("utf8"))
         print(response)
         #deviceInfo.setPhilipsData("motion", 1, "state", response['occupancy'])
         statusHandler.setMotionState(1, response['occupancy'])
@@ -49,7 +49,7 @@ def on_message(client, userdata, message):
                 deviceHandler.setLightState(1, "off")
         '''
     if message.topic == hallwayMotion:
-        response = json.load(message.payload.decode("utf8"))
+        response = json.loads(message.payload.decode("utf8"))
         print(response)
         #deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
         statusHandler.setMotionState(2, response['occupancy'])
@@ -76,13 +76,13 @@ def on_message(client, userdata, message):
                 deviceHandler.setLightState(2, "off")
 
     if message.topic == doorSensor:
-        response = json.load(message.payload.decode("utf8"))
+        response = json.loads(message.payload.decode("utf8"))
         print(response)
         statusHandler.setDoorState(1, response['contact'])
         logging.info("Door sensor " + str(response['contact']))
 
     if message.topic == switch:
-        response = json.load(message.payload.decode("utf8"))
+        response = json.loads(message.payload.decode("utf8"))
         try:
             if response['action'] == 'on-press':
                 if not deviceHandler.getLightState(3):
