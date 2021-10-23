@@ -27,6 +27,7 @@ def on_message(client, userdata, message):
     #print(message.topic)
     if message.topic == kitchenMotion:
         response = json.loads(message.payload.decode("utf8"))
+        print(response)
         #deviceInfo.setPhilipsData("motion", 1, "state", response['occupancy'])
         statusHandler.setMotionState(1, response['occupancy'])
         now = time.localtime()
@@ -49,6 +50,7 @@ def on_message(client, userdata, message):
         '''
     if message.topic == hallwayMotion:
         response = json.loads(message.payload.decode("utf8"))
+        print(response)
         #deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
         statusHandler.setMotionState(2, response['occupancy'])
         now = time.localtime()
