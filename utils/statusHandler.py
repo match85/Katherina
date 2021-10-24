@@ -110,23 +110,23 @@ def setDoorState(id, value):
 def setPhoneLast(last):
     with open("../config_data/status.json") as json_file:
         data = json.load(json_file)
-    data['phone']['last'] = last
+    data['phone']["1"]['last'] = last
     with open("../config_data/status.json", "w") as json_file:
         json.dump(data, json_file)
 
 def getPhoneLast():
     with open("../config_data/status.json") as json_file:
         data = json.load(json_file)
-    return data['phone']['last']
+    return data['phone']["1"]['last']
 
 def setPhoneState(state):
     with open("../config_data/status.json") as json_file:
         data = json.load(json_file)
-    data['phone']['state'] = state
+    data['phone']["1"]['state'] = state
     with open("../config_data/status.json", "w") as json_file:
         json.dump(data, json_file)
 
 def getPhoneState():
     with open("../config_data/status.json") as json_file:
         data = json.load(json_file)
-    return data['phone']['state']
+    return data['phone']["1"]['state']
