@@ -31,8 +31,11 @@ def getPhoneState(timeout):
 	response = str(out).lower().find("ttl")
 	if response == -1:
 		presence = False
+		statusHandler.setPhoneState(False)
 	else:
 		presence = True
+		statusHandler.setPhoneLast(time.time())
+		statusHandler.setPhoneState(True)
 
 	if timeout == 0:
 		if presence:
