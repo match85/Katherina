@@ -19,6 +19,7 @@ def setMotionState(id, value):
     data["motion"][str(id)]["state"] = value
     with open("../config_data/status.json", "w") as json_file:
         json.dump(data, json_file)
+        json_file.truncate()
 
 
 def getMotionLast(id):
@@ -33,6 +34,7 @@ def setMotionLast(id, value):
     data["motion"][str(id)]["last"] = value
     with open("../config_data/status.json", "w") as json_file:
         json.dump(data, json_file)
+        json_file.truncate()
 
 
 def getLightState(id):
@@ -47,6 +49,7 @@ def setLightState(id, value):
     data["light"][str(id)]["state"] = value
     with open("../config_data/status.json", "w") as json_file:
         json.dump(data, json_file)
+        json_file.truncate()
 
 
 def getPlugState(id):
@@ -61,6 +64,7 @@ def setPlugState(id, value):
     data["plug"][str(id)]["state"] = value
     with open("../config_data/status.json", "w") as json_file:
         json.dump(data, json_file)
+        json_file.truncate()
 
 
 def getCurrentTemp(id):
@@ -75,6 +79,7 @@ def setCurrentTemp(id, value):
     data["temp"][str(id)]["currentTemp"] = value
     with open("../config_data/status.json", "w") as json_file:
         json.dump(data, json_file)
+        json_file.truncate()
 
 
 def getCurrentHum(id):
@@ -89,6 +94,7 @@ def setCurrentHum(id, value):
     data["temp"][str(id)]["currentHum"] = value
     with open("../config_data/status.json", "w") as json_file:
         json.dump(data, json_file)
+        json_file.truncate()
 
 
 def getDoorState(id):
@@ -98,14 +104,12 @@ def getDoorState(id):
 
 
 def setDoorState(id, value):
-    try:
-        with open("../config_data/status.json") as json_file:
-            data = json.load(json_file)
-        data["door"][str(id)]["contact"] = value
-        with open("../config_data/status.json", "w") as json_file:
-            json.dump(data, json_file)
-    except:
-        pass
+    with open("../config_data/status.json") as json_file:
+        data = json.load(json_file)
+    data["door"][str(id)]["contact"] = value
+    with open("../config_data/status.json", "w") as json_file:
+        json.dump(data, json_file)
+        json_file.truncate()
 
 def setPhoneLast(last):
     with open("../config_data/status.json") as json_file:
@@ -113,6 +117,7 @@ def setPhoneLast(last):
     data['phone']["1"]['last'] = last
     with open("../config_data/status.json", "w") as json_file:
         json.dump(data, json_file)
+        json_file.truncate()
 
 def getPhoneLast():
     with open("../config_data/status.json") as json_file:
@@ -125,6 +130,7 @@ def setPhoneState(state):
     data['phone']["1"]['state'] = state
     with open("../config_data/status.json", "w") as json_file:
         json.dump(data, json_file)
+        json_file.truncate()
 
 def getPhoneState():
     with open("../config_data/status.json") as json_file:
