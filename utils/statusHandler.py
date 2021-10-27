@@ -2,6 +2,7 @@ import sys
 
 sys.path.append("..")
 import json
+import logging
 
 #with open("../config_data/status.json") as json_file:
 #    data = json.load(json_file)
@@ -113,7 +114,7 @@ def setDoorState(id, value):
 def setPhoneLast(last):
     with open("../config_data/status.json", "r+") as json_file:
         data = json.load(json_file)
-        data['phone']["1"]['last'] = last
+        data["phone"]["1"]["last"] = last
         json_file.seek(0)
         json.dump(data, json_file, indent=4)
         json_file.truncate()
@@ -121,12 +122,12 @@ def setPhoneLast(last):
 def getPhoneLast():
     with open("../config_data/status.json", "r") as json_file:
         data = json.load(json_file)
-    return data['phone']["1"]['last']
+    return data["phone"]["1"]["last"]
 
 def setPhoneState(state):
     with open("../config_data/status.json", "r+") as json_file:
         data = json.load(json_file)
-        data['phone']["1"]['state'] = state
+        data["phone"]["1"]["state"] = state
         json_file.seek(0)
         json.dump(data, json_file)
         json_file.truncate()
@@ -134,7 +135,7 @@ def setPhoneState(state):
 def getPhoneState():
     with open("../config_data/status.json", "r") as json_file:
         data = json.load(json_file)
-    return data['phone']["1"]['state']
+    return data["phone"]["1"]["state"]
 
 '''
 def getMotionState(id):
