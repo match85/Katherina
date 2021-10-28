@@ -1,3 +1,7 @@
+# python3
+import sys
+sys.path.append("..")
+
 import platform
 import subprocess
 import time
