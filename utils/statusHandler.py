@@ -129,7 +129,7 @@ def setPhoneState(state):
         data = json.load(json_file)
         data["phone"]["1"]["state"] = state
         json_file.seek(0)
-        json.dump(data, json_file)
+        json.dump(data, json_file, indent=4)
         json_file.truncate()
 
 def getPhoneState():
