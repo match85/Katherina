@@ -28,6 +28,9 @@ hubUrl = "http://" + deviceInfo.getPhilipsData("hub", "1", "ip") + "/api/" + dev
 
 # Phone check
 def getPhoneState(timeout):
+    return True
+
+    '''
     logging.info("Checking phone state with timeout " + str(timeout) + " minutes")
     param = '-n' if platform.system().lower() == 'windows' else '-c'
     param2 = '-w' if platform.system().lower() == 'windows' else '-W'
@@ -64,7 +67,7 @@ def getPhoneState(timeout):
         logging.info("No phone detected in " + str(timeout) + " minutes")
 
     return presence
-
+    '''
 
 # DLink
 ##Motion
