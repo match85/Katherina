@@ -94,10 +94,19 @@ def on_message(client, userdata, message):
                 print('off button')
 
             if response['action'] == 'up-press':
-                print('up button')
+                min_temp = float(routineInfo.getRoutineData("temp", "min_temp"))
+                max_temp = float(routineInfo.getRoutineData("temp", "max_temp"))
+                routineInfo.setRoutineData("temp", "min_temp", str(min_temp + 1))
+                routineInfo.setRoutineData("temp", "max_temp", str(max_temp + 1))
+                logging.info("Temperature increased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp"))
 
             if response['action'] == 'down-press':
-                print('down button')
+                min_temp = float(routineInfo.getRoutineData("temp", "min_temp"))
+                max_temp = float(routineInfo.getRoutineData("temp", "max_temp"))
+                routineInfo.setRoutineData("temp", "min_temp", str(min_temp - 1))
+                routineInfo.setRoutineData("temp", "max_temp", str(max_temp - 1))
+                logging.info("Temperature decreased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp"))
+
         except:
             pass
 

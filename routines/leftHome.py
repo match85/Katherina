@@ -1,10 +1,14 @@
 import sys
 sys.path.append("..")
 from utils import deviceHandler
+from utils import statusHandler
 from config_data import routineInfo
 import logging
+import time
 
-if not deviceHandler.getPhoneState(int(routineInfo.getRoutineData("leftHome", "timeout"))):
+timeout = int(time.time() - statusHandler.getPhoneLast())
+
+if (not statusHandler.getPhoneState()) and ((routineInfo.getRoutineData("leftHome", "timeout") * 60) <= timeout):
 	logging.info("Left home routine triggered")
 	deviceHandler.setLightState(1, "off")
 	deviceHandler.setLightState(2, "off")

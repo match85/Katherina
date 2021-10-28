@@ -9,6 +9,7 @@ def getRoutineData(routineName, item):
 def setRoutineData(routine, item, value):
     data[routine][item] = value
     with open("../config_data/routineConfig.json", "w") as json_file:
-        json.dump(data, json_file)
+        json.dump(data, json_file, indent=4)
+        json_file.truncate()
 
 
