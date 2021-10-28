@@ -7,6 +7,7 @@ import subprocess
 import time
 from config_data import deviceInfo
 from utils import statusHandler
+import logging
 
 
 def ping():
@@ -35,3 +36,4 @@ if not currentState:
 if currentState != storedState:
     statusHandler.setPhoneState(currentState)
     statusHandler.setPhoneLast(time.time())
+    logging.info("Phone state changed from " + str(storedState) + " to " + str(currentState))
