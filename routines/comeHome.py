@@ -14,6 +14,6 @@ while (not statusHandler.getPhoneState()) and ((currentTime >= 17) or (currentTi
     #logging.info("Coming home investigation started")
     time.sleep(10)
     # deviceHandler.getPhoneState(0)
-    if (lastSeen < time.time()) and statusHandler.getPhoneState():
+    if ((lastSeen + 1800) < time.time()) and statusHandler.getPhoneState():
         logging.info("User came home detected")
         deviceHandler.setLightState(3, 'on')
