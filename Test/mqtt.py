@@ -11,9 +11,9 @@ from config_data import routineInfo
 from config_data import deviceInfo
 import importlib
 
-from datetime import date, datetime
+import datetime
 
-today = date.today()
+today = datetime.date.today()
 import logging
 logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S', level=logging.INFO)
 
