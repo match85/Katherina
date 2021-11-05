@@ -11,7 +11,8 @@ from config_data import routineInfo
 from config_data import deviceInfo
 import importlib
 
-from datetime import date
+from datetime import date, datetime
+
 today = date.today()
 import logging
 logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S', level=logging.INFO)
@@ -65,6 +66,9 @@ def on_message(client, userdata, message):
                     deviceHandler.setLightState(2, "on")
             else:
                 deviceHandler.setLightState(2, "on")
+                #TODO test this
+                if ((datetime.datetime.now().hour >= 17) or (datetime.datetime.now().hour <= 5)) and ((statusHandler.getPhoneLast() + 1800) < time.time()):
+                    deviceHandler.setLightState(3, "on")
             try:
                 requests.get(deviceHandler.getTabletUrl() + "motion=true")
             except:
