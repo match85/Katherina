@@ -67,6 +67,9 @@ def on_message(client, userdata, message):
                     deviceHandler.setLightState(2, "on")
             else:
                 deviceHandler.setLightState(2, "on")
+
+            if deviceHandler.goneHome():
+                deviceHandler.setLightState(3, "on")
             try:
                 requests.get(deviceHandler.getTabletUrl() + "motion=true")
             except:

@@ -8,7 +8,7 @@ from config_data import deviceInfo
 from config_data import routineInfo
 from utils import deviceHandler
 import requests
-from datetime import date
+from datetime import date, datetime
 from utils import statusHandler
 
 today = date.today()
@@ -20,54 +20,18 @@ logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime
 from utils.pyS150 import MotionSensor
 from utils.pyW215 import SmartPlug, ON, OFF
 
+
 # from utils import databaseHandler
 
 hubUrl = "http://" + deviceInfo.getPhilipsData("hub", "1", "ip") + "/api/" + deviceInfo.getPhilipsData("hub", "1",
                                                                                                        "auth")
 
-
-# Phone check
-def getPhoneState(timeout):
-    return True
-
-    '''
-    logging.info("Checking phone state with timeout " + str(timeout) + " minutes")
-    param = '-n' if platform.system().lower() == 'windows' else '-c'
-    param2 = '-w' if platform.system().lower() == 'windows' else '-W'
-    command = ['ping', param, '1', param2, '1', deviceInfo.getPhoneIp()]
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = process.communicate()
-    response = str(out).lower().find("ttl")
-    if response == -1:
-        presence = False
-        statusHandler.setPhoneState(False)
+def goneHome():
+    if ((datetime.now().hour >= 17) or (datetime.now().hour <= 5)) and ((statusHandler.getPhoneLast() + 1800) < time.time()):
+        return True
     else:
-        presence = True
-        statusHandler.setPhoneLast(time.time())
-        statusHandler.setPhoneState(True)
+        return False
 
-    if response == -1 and timeout > 0:
-        i = 0
-
-        while (presence != True) and (i < timeout):
-            time.sleep(60)
-            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            out, err = process.communicate()
-            response = str(out).lower().find("ttl")
-            if response == -1:
-                i += 1
-            else:
-                presence = True
-    if presence:
-        statusHandler.setPhoneLast(time.time())
-        statusHandler.setPhoneState(True)
-        logging.info("Phone detected in " + str(timeout) + " minutes")
-    else:
-        statusHandler.setPhoneState(False)
-        logging.info("No phone detected in " + str(timeout) + " minutes")
-
-    return presence
-    '''
 
 # DLink
 ##Motion

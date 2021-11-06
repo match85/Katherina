@@ -8,7 +8,7 @@ import logging
 
 vac = viomivacuum.ViomiVacuum("192.168.1.185", "4c3852586a715070644c78664c426a6d")
 cleaning = False
-logging.info("Vacuum cleaning whatching started")
+logging.info("Vacuum cleaning watching started")
 while not cleaning:
     if not statusHandler.getPhoneState():
         logging.info("Starting vacuum cleaning")
