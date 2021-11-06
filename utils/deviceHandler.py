@@ -1,7 +1,5 @@
 # python3
 import json
-import platform
-import subprocess
 import time
 
 from config_data import deviceInfo
@@ -19,9 +17,6 @@ logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime
 
 from utils.pyS150 import MotionSensor
 from utils.pyW215 import SmartPlug, ON, OFF
-
-
-# from utils import databaseHandler
 
 hubUrl = "http://" + deviceInfo.getPhilipsData("hub", "1", "ip") + "/api/" + deviceInfo.getPhilipsData("hub", "1",
                                                                                                        "auth")

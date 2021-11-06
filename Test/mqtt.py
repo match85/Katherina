@@ -43,13 +43,7 @@ def on_message(client, userdata, message):
                     deviceHandler.setLightState(1, "on")
             else:
                 deviceHandler.setLightState(1, "on")
-            #time.sleep(60)
-        '''
-        else:
-            #logging.info("No motion detected in kitchen")
-            if deviceHandler.getLightState(1) and not bool(response['occupancy']):
-                deviceHandler.setLightState(1, "off")
-        '''
+
     if message.topic == hallwayMotion:
         response = json.loads(message.payload.decode("utf8"))
         print(response)
@@ -74,7 +68,6 @@ def on_message(client, userdata, message):
                 requests.get(deviceHandler.getTabletUrl() + "motion=true")
             except:
                 pass
-        # time.sleep(60)
         else:
             #logging.info("No motion detected in hallway")
             if deviceHandler.getLightState(2) and not bool(response['occupancy']):
@@ -118,7 +111,7 @@ def on_message(client, userdata, message):
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
-        client.connected_flag = True #set flag
+        client.connected_flag = True
         #print("connected OK")
         client.subscribe(kitchenMotion)
         client.subscribe(hallwayMotion)
@@ -128,8 +121,8 @@ def on_connect(client, userdata, flags, rc):
         print("Bad connection Returned code=", rc)
         client.bad_connection_flag = True
 
-#time.sleep(60)
-mqttBroker ="192.168.1.100"
+
+mqttBroker = deviceInfo.getRpiIp()
 mqtt.Client.connected_flag=False
 client = mqtt.Client(socket.gethostname())
 client.on_connect = on_connect

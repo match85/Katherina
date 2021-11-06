@@ -1,6 +1,5 @@
 import sys
 sys.path.append("..")
-from config_data import deviceInfo
 from utils import deviceHandler
 from utils import statusHandler
 import time

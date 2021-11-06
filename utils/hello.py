@@ -78,8 +78,6 @@ def getParams():
 def getTemp():
     temp = request.args.get('temp')
     hum = request.args.get('hum')
-    #deviceHandler.setCurrentTemperature(temp)
-    #deviceHandler.setCurrentHumidity(hum)
     statusHandler.setCurrentTemp(1, temp)
     statusHandler.setCurrentHum(1, hum)
     logging.info("Updating HT data:")
