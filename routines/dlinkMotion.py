@@ -17,8 +17,8 @@ while True:
 		pass
 	if now > last:
 		logging.info("Motion detected on DLink")
-		deviceHandler.setLightState(4, "on")
+		deviceHandler.setLightState(4, True)
 		last = now
 	if (time.time() > last + 60) and (deviceHandler.getLightState(4)):
 		logging.info("No motion detected on DLink for 1 minute")
-		deviceHandler.setLightState(4, "off")
+		deviceHandler.setLightState(4, False)

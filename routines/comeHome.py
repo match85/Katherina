@@ -16,4 +16,4 @@ while (not statusHandler.getPhoneState()) and ((currentTime >= 17) or (currentTi
     # deviceHandler.getPhoneState(0)
     if ((lastSeen + 1800) < time.time()) and statusHandler.getPhoneState():
         logging.info("User came home detected")
-        deviceHandler.setLightState(3, 'on')
+        deviceHandler.setLightState(3, True)

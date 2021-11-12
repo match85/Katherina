@@ -39,13 +39,12 @@ def getMotionState():
 # Philips
 ##Lights
 
+
 def setLightState(id, state):
     url = hubUrl + "/lights/" + str(id) + "/state"
-    if state == 'on':
-        data = {"on": True}
-    else:
-        data = {"on": False}
-    logging.info("Switching " + state + " " + getLightName(id) + "(" + str(id) + ") light")
+    data = {"on": state}
+    statusHandler.setLightState(id, state)
+    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
     r = requests.put(url, json.dumps(data), timeout=5)
     try:
         requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
@@ -53,6 +52,23 @@ def setLightState(id, state):
         pass
     return 'OK'
 
+'''
+def setLightState(id, state):
+    url = hubUrl + "/lights/" + str(id) + "/state"
+    if state == 'on':
+        data = {"on": True}
+        statusHandler.setLightState(id, 'on')
+    else:
+        data = {"on": False}
+        statusHandler.setLightState(id, 'on')
+    logging.info("Switching " + state + " " + getLightName(id) + "(" + str(id) + ") light")
+    r = requests.put(url, json.dumps(data), timeout=5)
+    try:
+        requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
+    except:
+        pass
+    return 'OK'
+'''
 
 def getLightState(id):
     url = hubUrl + "/lights/" + str(id)

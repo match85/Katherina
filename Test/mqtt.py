@@ -38,11 +38,11 @@ def on_message(client, userdata, message):
             #logging.info("Motion detected in kitchen")
             #deviceInfo.setPhilipsData("motion", 1, "last", time.time())
             statusHandler.setMotionLast(1, time.time())
-            if not deviceHandler.getLightState(2):
+            if not statusHandler.getLightState(2):
                 if int(response['illuminance']) < routineInfo.getRoutineData("kitchenMotion", "minIlluminance"):
-                    deviceHandler.setLightState(1, "on")
+                    deviceHandler.setLightState(1, True)
             else:
-                deviceHandler.setLightState(1, "on")
+                deviceHandler.setLightState(1, True)
 
     if message.topic == hallwayMotion:
         response = json.loads(message.payload.decode("utf8"))
@@ -56,22 +56,22 @@ def on_message(client, userdata, message):
             #logging.info("Motion detected in hallway")
             #deviceInfo.setPhilipsData("motion", 2, "last", time.time())
             statusHandler.setMotionLast(2, time.time())
-            if not deviceHandler.getLightState(1):
+            if not statusHandler.getLightState(1):
                 if int(response['illuminance']) < routineInfo.getRoutineData("kitchenMotion", "minIlluminance"):
-                    deviceHandler.setLightState(2, "on")
+                    deviceHandler.setLightState(2, True)
             else:
-                deviceHandler.setLightState(2, "on")
+                deviceHandler.setLightState(2, True)
 
             if deviceHandler.goneHome():
-                deviceHandler.setLightState(3, "on")
+                deviceHandler.setLightState(3, True)
             try:
                 requests.get(deviceHandler.getTabletUrl() + "motion=true")
             except:
                 pass
         else:
             #logging.info("No motion detected in hallway")
-            if deviceHandler.getLightState(2) and not bool(response['occupancy']):
-                deviceHandler.setLightState(2, "off")
+            if statusHandler.getLightState(2) and not bool(response['occupancy']):
+                deviceHandler.setLightState(2, False)
 
     if message.topic == doorSensor:
         response = json.loads(message.payload.decode("utf8"))
@@ -83,10 +83,10 @@ def on_message(client, userdata, message):
         response = json.loads(message.payload.decode("utf8"))
         try:
             if response['action'] == 'on-press':
-                if not deviceHandler.getLightState(3):
-                    deviceHandler.setLightState(3, 'on')
+                if not statusHandler.getLightState(3):
+                    deviceHandler.setLightState(3, True)
                 else:
-                    deviceHandler.setLightState(3, 'off')
+                    deviceHandler.setLightState(3, False)
 
             if response['action'] == 'off-press':
                 print('off button')

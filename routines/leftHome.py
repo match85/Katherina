@@ -8,8 +8,8 @@ import time
 timeout = int(time.time() - statusHandler.getPhoneLast())
 if not statusHandler.getPhoneState():
 	logging.info("Left home routine triggered")
-	deviceHandler.setLightState(1, "off")
-	deviceHandler.setLightState(2, "off")
-	deviceHandler.setLightState(3, "off")
-	deviceHandler.setLightState(4, "off")
+	deviceHandler.setLightState(1, False)
+	deviceHandler.setLightState(2, False)
+	deviceHandler.setLightState(3, False)
+	deviceHandler.setLightState(4, False)
 	deviceHandler.setPlugState(0, "off")
