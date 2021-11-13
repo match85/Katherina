@@ -30,7 +30,7 @@ def index():
 
 @app.route('/lights/<id>/<switch>')
 def switchLight(id, switch):
-    deviceHandler.setLightState(id, bool(switch))
+    deviceHandler.setLightState(id, switch)
     return 'OK'
 
 

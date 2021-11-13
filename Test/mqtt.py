@@ -34,7 +34,7 @@ def on_message(client, userdata, message):
         statusHandler.setMotionState(1, response['occupancy'])
         now = time.localtime()
         print("Kitchen: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
-        if bool(response['occupancy']):
+        if response['occupancy']:
             #logging.info("Motion detected in kitchen")
             #deviceInfo.setPhilipsData("motion", 1, "last", time.time())
             statusHandler.setMotionLast(1, time.time())
@@ -52,7 +52,7 @@ def on_message(client, userdata, message):
         now = time.localtime()
         print("Hallway: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         print(routineInfo.getRoutineData("kitchenMotion", "minIlluminance"))
-        if bool(response['occupancy']):
+        if response['occupancy']:
             #logging.info("Motion detected in hallway")
             #deviceInfo.setPhilipsData("motion", 2, "last", time.time())
             statusHandler.setMotionLast(2, time.time())
@@ -70,7 +70,7 @@ def on_message(client, userdata, message):
                 pass
         else:
             #logging.info("No motion detected in hallway")
-            if statusHandler.getLightState(2) and not bool(response['occupancy']):
+            if statusHandler.getLightState(2) and not response['occupancy']:
                 deviceHandler.setLightState(2, False)
 
     if message.topic == doorSensor:
