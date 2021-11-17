@@ -108,11 +108,11 @@ def currentTemp():
     return statusHandler.getCurrentTemp(1)
 
 @app.route('/minTemp')
-def currentTemp():
+def minTemp():
     return routineInfo.getRoutineData("temp", "min_temp")
 
 @app.route('/maxTemp')
-def currentTemp():
+def maxTemp():
     return routineInfo.getRoutineData("temp", "max_temp")
 
 if __name__ == '__main__':
