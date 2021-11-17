@@ -103,6 +103,17 @@ def setRoutine():
     response = routineInfo.getRoutineData(routine, item)
     return response
 
+@app.route('/currentTemp')
+def currentTemp():
+    return statusHandler.getCurrentTemp(1)
+
+@app.route('/minTemp')
+def currentTemp():
+    return routineInfo.getRoutineData("temp", "min_temp")
+
+@app.route('/maxTemp')
+def currentTemp():
+    return routineInfo.getRoutineData("temp", "max_temp")
 
 if __name__ == '__main__':
     app.run(debug=True, port=6969, host='0.0.0.0')
