@@ -33,6 +33,9 @@ if not currentState:
         currentState = ping()
         i += 1
 
+if currentState:
+    statusHandler.setPhoneLast(time.time())
+
 if currentState != storedState:
     statusHandler.setPhoneState(currentState)
     statusHandler.setPhoneLast(time.time())
