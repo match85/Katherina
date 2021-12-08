@@ -2,11 +2,11 @@
 import sys
 sys.path.append("..")
 from utils import statusHandler
-from miio import viomivacuum
+from miio import ViomiVacuum
 import time
 import logging
 
-vac = viomivacuum.ViomiVacuum("192.168.1.185", "4c3852586a715070644c78664c426a6d")
+vac = ViomiVacuum("192.168.1.185", "4c3852586a715070644c78664c426a6d")
 cleaning = False
 logging.info("Vacuum cleaning watching started")
 while not cleaning:
