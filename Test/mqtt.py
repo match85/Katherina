@@ -99,7 +99,7 @@ def on_message(client, userdata, message):
                 routineInfo.setRoutineData("temp", "max_temp", str(max_temp + 1))
                 text = "Temperature increased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp")
                 logging.info("Temperature increased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp"))
-                os.system('/home/pi/alexa-remote-control-master/alexa_remote_control.sh -d ALL -e ' + text)
+                os.system('/home/pi/alexa-remote-control-master/alexa_remote_control.sh -d ALL -e speak:' + text)
 
             if response['action'] == 'down-press':
                 min_temp = float(routineInfo.getRoutineData("temp", "min_temp"))
@@ -108,7 +108,7 @@ def on_message(client, userdata, message):
                 routineInfo.setRoutineData("temp", "max_temp", str(max_temp - 1))
                 text = "Temperature decreased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp")
                 logging.info("Temperature decreased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp"))
-                os.system('/home/pi/alexa-remote-control-master/alexa_remote_control.sh -d ALL -e ' + text)
+                os.system('/home/pi/alexa-remote-control-master/alexa_remote_control.sh -d ALL -e speak:' + text)
 
         except:
             pass
