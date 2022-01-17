@@ -3,7 +3,7 @@ import datetime
 import sys
 
 sys.path.append("..")
-from flask import Flask
+from flask import Flask, jsonify, Response
 import requests
 from utils import deviceHandler
 from utils import monitor
@@ -119,7 +119,7 @@ def maxTemp():
 @app.route('/log')
 def log():
     with open("../logs/" + str(datetime.date.today()) + ".log", "r") as log_file:
-        return log_file.read()
+        return Response(log_file.read(), mimetype="text/plain", content_type="text/event-stream")
 
 if __name__ == '__main__':
     app.run(debug=True, port=6969, host='0.0.0.0')
