@@ -116,11 +116,11 @@ def minTemp():
 def maxTemp():
     return routineInfo.getRoutineData("temp", "max_temp")
 
-@app.route('/log')
-def log():
+@app.route('/log/<num>')
+def log(num):
     with open("../logs/" + str(datetime.date.today()) + ".log", "r") as log_file:
         lines = log_file.readlines()
-        return Response(lines[-10:], mimetype="text/plain", content_type="text/event-stream")
+        return Response(lines[int(num) * -1:], mimetype="text/plain", content_type="text/event-stream")
 
 if __name__ == '__main__':
     app.run(debug=True, port=6969, host='0.0.0.0')
