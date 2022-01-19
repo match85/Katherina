@@ -69,10 +69,10 @@ def on_message(client, userdata, message):
                 requests.get(deviceHandler.getTabletUrl() + "motion=true")
             except:
                 pass
-        else:
+        #else:
             #logging.info("No motion detected in hallway")
-            if statusHandler.getLightState(2) and not response['occupancy']:
-                deviceHandler.setLightState(2, False)
+        #    if statusHandler.getLightState(2) and not response['occupancy']:
+        #        deviceHandler.setLightState(2, False)
 
     if message.topic == doorSensor:
         response = json.loads(message.payload.decode("utf8"))
