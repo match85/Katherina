@@ -41,16 +41,17 @@ def getMotionState():
 
 
 def setLightState(id, state):
-    url = hubUrl + "/lights/" + str(id) + "/state"
-    data = {"on": state}
-    statusHandler.setLightState(id, state)
-    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-    r = requests.put(url, json.dumps(data), timeout=5)
-    try:
-        requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
-    except:
-        pass
-    return 'OK'
+    if statusHandler.getLightState(id) != state:
+        url = hubUrl + "/lights/" + str(id) + "/state"
+        data = {"on": state}
+        statusHandler.setLightState(id, state)
+        logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
+        r = requests.put(url, json.dumps(data), timeout=5)
+        try:
+            requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
+        except:
+            pass
+        return 'OK'
 
 '''
 def setLightState(id, state):
