@@ -8,6 +8,7 @@ from utils import deviceHandler
 import requests
 from datetime import date, datetime
 from utils import statusHandler
+import os
 
 today = date.today()
 import logging
@@ -178,3 +179,6 @@ def setMaxHumidity(value):
 
 def getTabletUrl():
     return "http://" + deviceInfo.getTabletIp() + ":" + deviceInfo.getTabletPort() + "/?"
+
+def alexaSay(text):
+    os.system('/home/pi/alexa-remote-control-master/alexa_remote_control.sh -d ALL -e speak:\"' + text + '\"')
