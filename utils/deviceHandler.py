@@ -181,4 +181,4 @@ def getTabletUrl():
     return "http://" + deviceInfo.getTabletIp() + ":" + deviceInfo.getTabletPort() + "/?"
 
 def alexaSay(text):
-    os.system('/home/pi/alexa-remote-control-master/alexa_remote_control.sh -d ALL -e speak:\"' + text + '\"')
+    os.system(r'/home/pi/alexa-remote-control-master/alexa_remote_control.sh -d ALL -e speak:\"' + text + '\"')
