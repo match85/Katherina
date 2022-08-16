@@ -1,7 +1,8 @@
 #python3
+import logging
 import sys
 import json
-import miio.viomivacuum
+import requests
 
 sys.path.append("..")
 import time
@@ -12,40 +13,26 @@ from utils import routineHandler
 from config_data import routineInfo
 from alexa_client import AlexaClient
 from utils import statusHandler
-from miio import viomivacuum
+from miio import ViomiVacuum
+import paho.mqtt.client as mqtt
+import socket
+import os
+from wakeonlan import send_magic_packet
 
-vac = viomivacuum.ViomiVacuum("192.168.1.185", "4c3852586a715070644c78664c426a6d")
-#vac.set_edge(miio.viomivacuum.ViomiEdgeState.On)
-'''
-print("Start 1")
-vac.move(viomivacuum.ViomiMovementDirection.Forward, 20)
-time.sleep(30)
-print("Finish 1")
-print("start 2")
-vac.move(viomivacuum.ViomiMovementDirection.Left, 1)
-time.sleep(10)
-print("finish 2")
-print("start 3")
-vac.move(viomivacuum.ViomiMovementDirection.Forward, 5)
-time.sleep(10)
-print("finish 3")
-time.sleep(20)
-print("go home")
-
-
-print("Send to the hallway")
-vac.start_with_room(rooms={"Hallway"})
-
-print("Sleep")
-time.sleep(80)
-print("Pausing")
-vac.pause()
-print("Sleep")
-time.sleep(30)
-print("Send to home")
-vac.home()
+''''
+from utils.pyW215 import SmartPlug, ON, OFF
+sp = SmartPlug(deviceInfo.getDlinkData("plug", 1, "ip"), deviceInfo.getDlinkData("plug", 1, "auth"))
+while True:
+    print("Total: " + str(sp.total_consumption) + " Current: " + str(sp.current_consumption))
+    time.sleep(10)
+#send_magic_packet('24.a2.e1.f3.68.2a', ip_address='192.168.1.178', port=80)
 '''
 
-statusHandler.setPhoneLast(time.time())
-time.sleep(10)
-print(int(time.time() - statusHandler.getPhoneLast()))
+#vac = ViomiVacuum("192.168.1.185", "4c3852586a715070644c78664c426a6d")
+#vac.home()
+#vac.start_with_room(['Living room', 'Hallway', 'Kitchen'])
+#vac.start()
+
+
+text = "haha"
+os.system(r'c:\temp\alexa_remote_control.sh -d ALL -e speak:\"' + text + '\"')
