@@ -202,10 +202,18 @@ bulb = yeelight.Bulb("192.168.1.160")
 
 def getYeelightState():
     data = bulb.get_properties()["power"]
-    return data
+    if data == "on":
+        return True
+    if data == "off":
+        return False
 
-def setYeelightState(state):
+def setYeelightState(state2):
     id = 3
+    if state2:
+        state = True
+    if not state2:
+        state = False
+
     if getYeelightState() != state:
         bulb.toggle()
         statusHandler.setLightState(id, state)
