@@ -2,6 +2,8 @@
 import json
 import time
 
+import yeelight
+
 from config_data import deviceInfo
 from config_data import routineInfo
 from utils import deviceHandler
@@ -9,6 +11,7 @@ import requests
 from datetime import date, datetime
 from utils import statusHandler
 import os
+from yeelight import Bulb
 
 today = date.today()
 import logging
@@ -42,6 +45,14 @@ def getMotionState():
 
 
 def setLightState(id, state):
+    if id == 3:
+        setYeelightState(state)
+        try:
+            requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
+        except:
+            pass
+        return 'OK'
+
     if statusHandler.getLightState(id) != state:
         url = hubUrl + "/lights/" + str(id) + "/state"
         data = {"on": state}
@@ -73,6 +84,8 @@ def setLightState(id, state):
 '''
 
 def getLightState(id):
+    if id == 3:
+        return getYeelightState()
     url = hubUrl + "/lights/" + str(id)
     r = requests.get(url)
     data = r.json()
@@ -182,3 +195,23 @@ def getTabletUrl():
 
 def alexaSay(text):
     logging.info(os.system(r'/home/pi/alexa-remote-control-master/alexa_remote_control.sh -d ALL -e speak:\"' + text + '\"'))
+
+#yeelight workaround
+
+bulb = yeelight.Bulb("192.168.1.160")
+
+def getYeelightState():
+    data = bulb.get_properties()["power"]
+    return data
+
+def setYeelightState(state):
+    id = 3
+    if getYeelightState() != state:
+        bulb.toggle()
+        statusHandler.setLightState(id, state)
+        logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
+        try:
+            requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
+        except:
+            pass
+        return 'OK'
