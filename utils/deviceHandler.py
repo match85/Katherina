@@ -212,9 +212,9 @@ def setYeelightState(state):
 
     if getYeelightState() != state:
         if state:
-            bulb.turn_on
+            bulb.turn_on()
         else:
-            bulb.turn_off
+            bulb.turn_off()
         statusHandler.setLightState(id, state)
         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
         try:
