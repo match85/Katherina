@@ -45,7 +45,7 @@ def getMotionState():
 
 
 def setLightState(id, state):
-    if id == (3 or 4):
+    if (id == 3) or (id == 4):
         setYeelightState(id, state)
         try:
             requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
@@ -84,7 +84,7 @@ def setLightState(id, state):
 '''
 
 def getLightState(id):
-    if id == (3 or 4):
+    if (id == 3) or (id == 4):
         return getYeelightState(id)
     url = hubUrl + "/lights/" + str(id)
     r = requests.get(url)
@@ -218,20 +218,18 @@ def getYeelightState(id):
 def setYeelightState(id, state):
 
     if getYeelightState(id) != state:
-        if state:
-            if id == 3:
-                bulb_room.turn_on()
-            else:
-                bulb_room.turn_off()
-            statusHandler.setLightState(id, state)
-            logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-        if state:
-            if id == 4:
-                bulb_bath.turn_on()
-            else:
-                bulb_bath.turn_off()
-            statusHandler.setLightState(id, state)
-            logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
+        if (id == 3) and state:
+            bulb_room.turn_on()
+        else:
+            bulb_room.turn_off()
+        statusHandler.setLightState(id, state)
+        logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
+        if (id == 4) and state:
+            bulb_bath.turn_on()
+        else:
+            bulb_bath.turn_off()
+        statusHandler.setLightState(id, state)
+        logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
         try:
             requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
         except:
