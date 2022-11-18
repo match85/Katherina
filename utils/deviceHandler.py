@@ -202,7 +202,11 @@ bulb_room = yeelight.Bulb("192.168.1.160")
 bulb_bath = yeelight.Bulb("192.168.1.161")
 
 def getYeelightState(id):
-    data = bulb.get_properties()["power"]
+    if id == 3:
+        data = bulb_room.get_properties()["power"]
+    if id == 4:
+        data = bulb_bath.get_properties()["power"]
+
     if data == "on":
         return True
     if data == "off":
