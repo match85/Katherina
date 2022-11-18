@@ -218,16 +218,18 @@ def getYeelightState(id):
 def setYeelightState(id, state):
     if id == 3:
         if getYeelightState(id) != state:
-            bulb_room.turn_on()
-        else:
-            bulb_room.turn_off()
+            if state:
+                bulb_room.turn_on()
+            if not state:
+                bulb_room.turn_off()
         statusHandler.setLightState(id, state)
         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
     if id == 4:
         if getYeelightState(id) != state:
-            bulb_bath.turn_on()
-        else:
-            bulb_bath.turn_off()
+            if state:
+                bulb_bath.turn_on()
+            if not state:
+                bulb_bath.turn_off()
         statusHandler.setLightState(id, state)
         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
     return 'OK'
