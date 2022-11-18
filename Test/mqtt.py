@@ -83,10 +83,6 @@ def on_message(client, userdata, message):
         if response['occupancy']:
             statusHandler.setMotionLast(3, time.time())
             deviceHandler.setLightState(4, True)
-            try:
-                requests.get(deviceHandler.getTabletUrl() + "motion=true")
-            except:
-                pass
 
     if message.topic == doorSensor:
         response = json.loads(message.payload.decode("utf8"))
