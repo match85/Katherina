@@ -216,22 +216,18 @@ def getYeelightState(id):
             return False
 
 def setYeelightState(id, state):
-
-    if getYeelightState(id) != state:
-        if (id == 3) and state:
+    if id == 3:
+        if getYeelightState(id) != state:
             bulb_room.turn_on()
         else:
             bulb_room.turn_off()
         statusHandler.setLightState(id, state)
         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-        if (id == 4) and state:
+    if id == 4:
+        if getYeelightState(id) != state:
             bulb_bath.turn_on()
         else:
             bulb_bath.turn_off()
         statusHandler.setLightState(id, state)
         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-        try:
-            requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
-        except:
-            pass
-        return 'OK'
+    return 'OK'
