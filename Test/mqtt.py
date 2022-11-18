@@ -73,6 +73,20 @@ def on_message(client, userdata, message):
             #logging.info("No motion detected in hallway")
         #    if statusHandler.getLightState(2) and not response['occupancy']:
         #        deviceHandler.setLightState(2, False)
+    if message.topic == 'zigbee2mqtt/bath_motion':
+        response = json.loads(message.payload.decode("utf8"))
+        print(response)
+        #deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
+        statusHandler.setMotionState(3, response['occupancy'])
+        now = time.localtime()
+        print("Bathroom: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']))
+        if response['occupancy']:
+            statusHandler.setMotionLast(3, time.time())
+            deviceHandler.setLightState(4, True)
+            try:
+                requests.get(deviceHandler.getTabletUrl() + "motion=true")
+            except:
+                pass
 
     if message.topic == doorSensor:
         response = json.loads(message.payload.decode("utf8"))
@@ -122,6 +136,7 @@ def on_connect(client, userdata, flags, rc):
         client.subscribe(hallwayMotion)
         client.subscribe(doorSensor)
         client.subscribe(switch)
+        client.subscribe('zigbee2mqtt/bath_motion')
     else:
         print("Bad connection Returned code=", rc)
         client.bad_connection_flag = True

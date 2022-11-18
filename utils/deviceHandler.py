@@ -45,8 +45,8 @@ def getMotionState():
 
 
 def setLightState(id, state):
-    if id == 3:
-        setYeelightState(state)
+    if id == 3 or 4:
+        setYeelightState(id, state)
         try:
             requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
         except:
@@ -84,8 +84,8 @@ def setLightState(id, state):
 '''
 
 def getLightState(id):
-    if id == 3:
-        return getYeelightState()
+    if id == 3 or 4:
+        return getYeelightState(id)
     url = hubUrl + "/lights/" + str(id)
     r = requests.get(url)
     data = r.json()
@@ -198,25 +198,33 @@ def alexaSay(text):
 
 #yeelight workaround
 
-bulb = yeelight.Bulb("192.168.1.160")
+bulb_room = yeelight.Bulb("192.168.1.160")
+bulb_bath = yeelight.Bulb("192.168.1.161")
 
-def getYeelightState():
+def getYeelightState(id):
     data = bulb.get_properties()["power"]
     if data == "on":
         return True
     if data == "off":
         return False
 
-def setYeelightState(state):
-    id = 3
+def setYeelightState(id, state):
 
-    if getYeelightState() != state:
+    if getYeelightState(id) != state:
         if state:
-            bulb.turn_on()
-        else:
-            bulb.turn_off()
-        statusHandler.setLightState(id, state)
-        logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
+            if id == 3:
+                bulb_room.turn_on()
+            else:
+                bulb_room.turn_off()
+            statusHandler.setLightState(id, state)
+            logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
+
+            if id == 4:
+                bulb_bath.turn_on()
+            else:
+                bulb_bath.turn_off()
+            statusHandler.setLightState(id, state)
+            logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
         try:
             requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
         except:
