@@ -45,7 +45,7 @@ def getMotionState():
 
 
 def setLightState(id, state):
-    if id == 3 or 4:
+    if id == (3 or 4):
         setYeelightState(id, state)
         try:
             requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
@@ -84,7 +84,7 @@ def setLightState(id, state):
 '''
 
 def getLightState(id):
-    if id == 3 or 4:
+    if id == (3 or 4):
         return getYeelightState(id)
     url = hubUrl + "/lights/" + str(id)
     r = requests.get(url)
@@ -204,13 +204,16 @@ bulb_bath = yeelight.Bulb("192.168.1.161")
 def getYeelightState(id):
     if id == 3:
         data = bulb_room.get_properties()["power"]
+        if data == "on":
+            return True
+        if data == "off":
+            return False
     if id == 4:
         data = bulb_bath.get_properties()["power"]
-
-    if data == "on":
-        return True
-    if data == "off":
-        return False
+        if data == "on":
+            return True
+        if data == "off":
+            return False
 
 def setYeelightState(id, state):
 
@@ -222,7 +225,7 @@ def setYeelightState(id, state):
                 bulb_room.turn_off()
             statusHandler.setLightState(id, state)
             logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-
+        if state:
             if id == 4:
                 bulb_bath.turn_on()
             else:
