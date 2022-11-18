@@ -52,7 +52,6 @@ def setLightState(id, state):
         except:
             pass
         return 'OK'
-
     if statusHandler.getLightState(id) != state:
         url = hubUrl + "/lights/" + str(id) + "/state"
         data = {"on": state}
@@ -233,3 +232,10 @@ def setYeelightState(id, state):
         statusHandler.setLightState(id, state)
         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
     return 'OK'
+
+def turnOffWashTemp():
+    hubUrl = "http://" + deviceInfo.getPhilipsData("hub", "1", "ip") + "/api/" + deviceInfo.getPhilipsData("hub", "1",
+                                                                                                           "auth")
+    url = hubUrl + "/lights/" + "4" + "/state"
+    data = {"on": False}
+    r = requests.put(url, json.dumps(data), timeout=5)

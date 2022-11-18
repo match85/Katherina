@@ -14,6 +14,7 @@ lastHallway = statusHandler.getMotionLast(2)
 if (time.time() > lastHallway + 60) and (deviceHandler.getLightState(2)):
     logging.info("No motion detected hallway for 1 minute")
     deviceHandler.setLightState(2, False)
+    deviceHandler.turnOffWashTemp()
 
 lastBath = statusHandler.getMotionLast(3)
 if (time.time() > lastBath + 60) and (deviceHandler.getLightState(4)):
