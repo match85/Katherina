@@ -34,7 +34,7 @@ def on_message(client, userdata, message):
         #deviceInfo.setPhilipsData("motion", 1, "state", response['occupancy'])
         statusHandler.setMotionState(1, response['occupancy'])
         now = time.localtime()
-        print("Kitchen: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
+        #print("Kitchen: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         if response['occupancy']:
             #logging.info("Motion detected in kitchen")
             #deviceInfo.setPhilipsData("motion", 1, "last", time.time())
@@ -51,7 +51,7 @@ def on_message(client, userdata, message):
         #deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
         statusHandler.setMotionState(2, response['occupancy'])
         now = time.localtime()
-        print("Hallway: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
+        #print("Hallway: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         print(routineInfo.getRoutineData("kitchenMotion", "minIlluminance"))
         if response['occupancy']:
             #logging.info("Motion detected in hallway")
@@ -79,7 +79,7 @@ def on_message(client, userdata, message):
         #deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
         statusHandler.setMotionState(3, response['occupancy'])
         now = time.localtime()
-        print("Bathroom: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']))
+        #print("Bathroom: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']))
         if response['occupancy']:
             statusHandler.setMotionLast(3, time.time())
             deviceHandler.setLightState(4, True)
