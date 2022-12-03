@@ -85,6 +85,8 @@ def setLightState(id, state):
 def getLightState(id):
     if (id == 3) or (id == 4):
         return getYeelightState(id)
+    if id == 5:
+        id = 4
     url = hubUrl + "/lights/" + str(id)
     r = requests.get(url)
     data = r.json()
