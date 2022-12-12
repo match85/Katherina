@@ -10,84 +10,84 @@ logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime
 
 with open("../config_data/status.json", "r+") as json_file:
     data = json.load(json_file)
-    logging.info("Status.json loaded")
+    #logging.info("Status.json loaded")
 
-    def writeOutStatus():
-        with open("../config_data/status.json", "r+") as json_file2:
-            json_file2.seek(0)
-            json.dump(data, json_file2, indent=4)
-            json_file2.truncate()
-
-
-    def getMotionState(id):
-        return data["motion"][str(id)]["state"]
+def writeOutStatus():
+    with open("../config_data/status.json", "r+") as json_file2:
+        json_file2.seek(0)
+        json.dump(data, json_file2, indent=4)
+        json_file2.truncate()
 
 
-    def setMotionState(id, value):
-        data["motion"][str(id)]["state"] = value
+def getMotionState(id):
+    return data["motion"][str(id)]["state"]
 
 
-    def getMotionLast(id):
-        return data["motion"][str(id)]["last"]
+def setMotionState(id, value):
+    data["motion"][str(id)]["state"] = value
 
 
-    def setMotionLast(id, value):
-        data["motion"][str(id)]["last"] = value
+def getMotionLast(id):
+    return data["motion"][str(id)]["last"]
 
 
-    def getLightState(id):
-        return data["light"][str(id)]["state"]
+def setMotionLast(id, value):
+    data["motion"][str(id)]["last"] = value
 
 
-    def setLightState(id, value):
-        data["light"][str(id)]["state"] = value
+def getLightState(id):
+    return data["light"][str(id)]["state"]
 
 
-    def getPlugState(id):
-        return data["plug"][str(id)]["state"]
+def setLightState(id, value):
+    data["light"][str(id)]["state"] = value
 
 
-    def setPlugState(id, value):
-        data["plug"][str(id)]["state"] = value
+def getPlugState(id):
+    return data["plug"][str(id)]["state"]
 
 
-    def getCurrentTemp(id):
-        with open("../config_data/status.json", "r") as json_file:
-            data = json.load(json_file)
-        return data["temp"][str(id)]["currentTemp"]
+def setPlugState(id, value):
+    data["plug"][str(id)]["state"] = value
 
 
-    def setCurrentTemp(id, value):
-        data["temp"][str(id)]["currentTemp"] = value
+def getCurrentTemp(id):
+    with open("../config_data/status.json", "r") as json_file:
+        data = json.load(json_file)
+    return data["temp"][str(id)]["currentTemp"]
 
 
-    def getCurrentHum(id):
-        return data["temp"][str(id)]["currentHum"]
+def setCurrentTemp(id, value):
+    data["temp"][str(id)]["currentTemp"] = value
 
 
-    def setCurrentHum(id, value):
-        data["temp"][str(id)]["currentHum"] = value
+def getCurrentHum(id):
+    return data["temp"][str(id)]["currentHum"]
 
 
-    def getDoorState(id):
-        return data["door"][str(id)]["contact"]
+def setCurrentHum(id, value):
+    data["temp"][str(id)]["currentHum"] = value
 
 
-    def setDoorState(id, value):
-        data["door"][str(id)]["contact"] = value
+def getDoorState(id):
+    return data["door"][str(id)]["contact"]
 
 
-    def setPhoneLast(last):
-        data["phone"]["1"]["last"] = last
+def setDoorState(id, value):
+    data["door"][str(id)]["contact"] = value
 
 
-    def getPhoneLast():
-        return data["phone"]["1"]["last"]
+def setPhoneLast(last):
+    data["phone"]["1"]["last"] = last
 
 
-    def setPhoneState(state):
-        data["phone"]["1"]["state"] = state
+def getPhoneLast():
+    return data["phone"]["1"]["last"]
 
 
-    def getPhoneState():
-        return data["phone"]["1"]["state"]
+def setPhoneState(state):
+    data["phone"]["1"]["state"] = state
+
+
+def getPhoneState():
+    return data["phone"]["1"]["state"]
