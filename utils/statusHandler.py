@@ -3,6 +3,10 @@ import sys
 sys.path.append("..")
 import json
 import logging
+from datetime import date
+today = date.today()
+logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S', level=logging.INFO)
+
 
 with open("../config_data/status.json", "r+") as json_file:
     data = json.load(json_file)
