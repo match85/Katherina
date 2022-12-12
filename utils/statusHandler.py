@@ -6,7 +6,7 @@ import logging
 
 with open("../config_data/status.json", "r+") as json_file:
     data = json.load(json_file)
-    print("json loaded")
+    logging.info("Status.json loaded")
 
 
 def writeOutStatus():
