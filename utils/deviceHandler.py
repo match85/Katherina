@@ -204,13 +204,19 @@ bulb_bath = yeelight.Bulb("192.168.1.161")
 
 def getYeelightState(id):
     if id == 3:
-        data = bulb_room.get_properties()["power"]
+        try:
+            data = bulb_room.get_properties()["power"]
+        except yeelight.BulbException:
+            return False
         if data == "on":
             return True
         if data == "off":
             return False
     if id == 4:
-        data = bulb_bath.get_properties()["power"]
+        try:
+            data = bulb_bath.get_properties()["power"]
+        except yeelight.BulbException:
+            return False
         if data == "on":
             return True
         if data == "off":
@@ -238,6 +244,7 @@ def setYeelightState(id, state):
 def turnOffWashTemp():
     hubUrl = "http://" + deviceInfo.getPhilipsData("hub", "1", "ip") + "/api/" + deviceInfo.getPhilipsData("hub", "1",
                                                                                                            "auth")
+    logging.info("Setting light " + getLightName(5) + "(" + str(id) + ") to False")
     url = hubUrl + "/lights/" + "4" + "/state"
     data = {"on": False}
     r = requests.put(url, json.dumps(data), timeout=5)
