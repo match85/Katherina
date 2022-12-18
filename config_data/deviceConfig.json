@@ -35,6 +35,9 @@
       },
       "4": {
         "name": "Bathroom"
+      },
+      "5": {
+        "name": "Washroom"
       }
     },
     "motion": {
