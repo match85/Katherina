@@ -247,7 +247,7 @@ def setYeelightState(id, state):
 def turnOffWashTemp():
     hubUrl = "http://" + deviceInfo.getPhilipsData("hub", "1", "ip") + "/api/" + deviceInfo.getPhilipsData("hub", "1",
                                                                                                            "auth")
-    logging.info("Setting light " + getLightName(5) + "(" + str(id) + ") to False")
+    logging.info("Setting light " + getLightName(5) + "(" + str(5) + ") to False")
     url = hubUrl + "/lights/" + "4" + "/state"
     data = {"on": False}
     r = requests.put(url, json.dumps(data), timeout=5)
