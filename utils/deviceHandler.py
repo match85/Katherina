@@ -53,7 +53,10 @@ def setLightState(id, state):
             pass
         return 'OK'
     if statusHandler.getLightState(id) != state:
-        url = hubUrl + "/lights/" + str(id) + "/state"
+        if id == 5:
+            url = hubUrl + "/lights/" + str(4) + "/state"
+        else:
+            url = hubUrl + "/lights/" + str(id) + "/state"
         data = {"on": state}
         statusHandler.setLightState(id, state)
         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
