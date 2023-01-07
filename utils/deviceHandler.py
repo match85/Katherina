@@ -48,7 +48,7 @@ def setLightState(id, state):
     if (id == 3) or (id == 4):
         setYeelightState(id, state)
         try:
-            requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
+            requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state), timeout=1)
         except:
             pass
         return 'OK'
@@ -62,7 +62,7 @@ def setLightState(id, state):
         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
         r = requests.put(url, json.dumps(data), timeout=5)
         try:
-            requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
+            requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state), timeout=1)
         except:
             pass
         return 'OK'
@@ -136,7 +136,7 @@ def setPlugState(id, state):
     else:
         sp.state = OFF
     try:
-        requests.get(deviceHandler.getTabletUrl() + "plug" + str(id) + "=" + str(state))
+        requests.get(deviceHandler.getTabletUrl() + "plug" + str(id) + "=" + str(state), timeout=1)
     except:
         pass
     return 'OK'
