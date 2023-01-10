@@ -12,6 +12,7 @@ from datetime import date, datetime
 from utils import statusHandler
 import os
 from yeelight import Bulb
+import paho.mqtt.client as mqtt
 
 today = date.today()
 import logging
@@ -281,9 +282,6 @@ def setYeelightState(id, state):
     return 'OK'
 
 def turnOffWashTemp():
-    hubUrl = "http://" + deviceInfo.getPhilipsData("hub", "1", "ip") + "/api/" + deviceInfo.getPhilipsData("hub", "1",
-                                                                                                           "auth")
-    logging.info("Setting light " + getLightName(5) + "(" + str(5) + ") to False")
-    url = hubUrl + "/lights/" + "4" + "/state"
-    data = {"on": False}
-    r = requests.put(url, json.dumps(data), timeout=5)
+    client = mqtt.Client(deviceInfo.getRpiIp())
+    client.connect(deviceInfo.getRpiIp())
+    client.publish("zigbee2mqtt/washroom_light/set", "{\"state\": \"OFF\"}")
