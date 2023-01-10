@@ -105,8 +105,8 @@ def on_message(client, userdata, message):
             if response['action'] == 'up-press':
                 min_temp = float(routineInfo.getRoutineData("temp", "min_temp"))
                 max_temp = float(routineInfo.getRoutineData("temp", "max_temp"))
-                routineInfo.setRoutineData("temp", "min_temp", str(min_temp + 1))
-                routineInfo.setRoutineData("temp", "max_temp", str(max_temp + 1))
+                routineInfo.setRoutineData("temp", "min_temp", str(min_temp + 0.5))
+                routineInfo.setRoutineData("temp", "max_temp", str(max_temp + 0.5))
                 text = "Temperature increased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp")
                 logging.info("Temperature increased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp"))
                 deviceHandler.alexaSay(text)
@@ -114,8 +114,8 @@ def on_message(client, userdata, message):
             if response['action'] == 'down-press':
                 min_temp = float(routineInfo.getRoutineData("temp", "min_temp"))
                 max_temp = float(routineInfo.getRoutineData("temp", "max_temp"))
-                routineInfo.setRoutineData("temp", "min_temp", str(min_temp - 1))
-                routineInfo.setRoutineData("temp", "max_temp", str(max_temp - 1))
+                routineInfo.setRoutineData("temp", "min_temp", str(min_temp - 0.5))
+                routineInfo.setRoutineData("temp", "max_temp", str(max_temp - 0.5))
                 text = "Temperature decreased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp")
                 logging.info("Temperature decreased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp"))
                 deviceHandler.alexaSay(text)
