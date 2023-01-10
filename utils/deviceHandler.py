@@ -285,3 +285,4 @@ def turnOffWashTemp():
     client = mqtt.Client(deviceInfo.getRpiIp())
     client.connect(deviceInfo.getRpiIp())
     client.publish("zigbee2mqtt/washroom_light/set", "{\"state\": \"OFF\"}")
+    client.disconnect()
