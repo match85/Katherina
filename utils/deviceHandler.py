@@ -45,7 +45,7 @@ def getMotionState():
 
 
 def setLightState(id, state):
-    if (id == 3) or (id == 4) or (id == 2)or (id == 1):
+    if (id == 3) or (id == 4) or (id == 2) or (id == 1):
         setYeelightState(id, state)
         try:
             requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state), timeout=1)
@@ -86,7 +86,7 @@ def setLightState(id, state):
 '''
 
 def getLightState(id):
-    if (id == 3) or (id == 4) or (id == 2)or (id == 2):
+    if (id == 3) or (id == 4) or (id == 2) or (id == 1):
         return getYeelightState(id)
     if id == 5:
         id = 4
