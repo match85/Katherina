@@ -280,9 +280,10 @@ def setYeelightState(id, state):
         statusHandler.setLightState(id, state)
         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
     return 'OK'
-
+"""
 def turnOffWashTemp():
     client = mqtt.Client(deviceInfo.getRpiIp())
     client.connect(deviceInfo.getRpiIp())
     client.publish("zigbee2mqtt/washroom_light/set", "{\"state\": \"OFF\"}")
     client.disconnect()
+"""

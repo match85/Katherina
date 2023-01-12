@@ -8,7 +8,8 @@ import logging
 #    data = json.load(json_file)
 
 if __name__ == "__main__":
-    print("asdfd")
+    with open("../config_data/status.json", "r+") as json_file:
+        data = json.load(json_file)
 
 def getMotionState(id):
     with open("../config_data/status.json", "r") as json_file:
