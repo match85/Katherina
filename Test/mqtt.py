@@ -107,18 +107,18 @@ def on_message(client, userdata, message):
                 max_temp = float(routineInfo.getRoutineData("temp", "max_temp"))
                 routineInfo.setRoutineData("temp", "min_temp", str(min_temp + 0.5))
                 routineInfo.setRoutineData("temp", "max_temp", str(max_temp + 0.5))
-                text = "Temperature increased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp")
+                #text = "Temperature increased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp")
                 logging.info("Temperature increased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp"))
-                deviceHandler.alexaSay(text)
+                #deviceHandler.alexaSay(text)
 
             if response['action'] == 'down-press':
                 min_temp = float(routineInfo.getRoutineData("temp", "min_temp"))
                 max_temp = float(routineInfo.getRoutineData("temp", "max_temp"))
                 routineInfo.setRoutineData("temp", "min_temp", str(min_temp - 0.5))
                 routineInfo.setRoutineData("temp", "max_temp", str(max_temp - 0.5))
-                text = "Temperature decreased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp")
+                #text = "Temperature decreased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp")
                 logging.info("Temperature decreased to " + routineInfo.getRoutineData("temp", "min_temp") + "-" + routineInfo.getRoutineData("temp", "max_temp"))
-                deviceHandler.alexaSay(text)
+                #deviceHandler.alexaSay(text)
 
         except:
             pass
@@ -142,16 +142,8 @@ mqttBroker = deviceInfo.getRpiIp()
 mqtt.Client.connected_flag=False
 client = mqtt.Client(socket.gethostname())
 client.on_connect = on_connect
-client.loop_start()
+client.on_message = on_message
 print("Connecting to broker ", mqttBroker)
 client.connect(mqttBroker)
-while not client.connected_flag:
-    print("In wait loop")
-    time.sleep(1)
-print("in Main Loop")
-while True:
-    client.on_message = on_message
-
-
-#time.sleep(30)
+client.loop_forever()
 client.loop_stop()
