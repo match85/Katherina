@@ -196,12 +196,11 @@ def alexaSay(text):
 
 #yeelight workaround
 
-bulb_room = yeelight.Bulb("192.168.1.160")
-bulb_bath = yeelight.Bulb("192.168.1.161")
-bulb_hallway = yeelight.Bulb("192.168.1.162")
-bulb_kitchen = yeelight.Bulb("192.168.1.163")
-
 def getYeelightState(id):
+    bulb_room = yeelight.Bulb("192.168.1.160")
+    bulb_bath = yeelight.Bulb("192.168.1.161")
+    bulb_hallway = yeelight.Bulb("192.168.1.162")
+    bulb_kitchen = yeelight.Bulb("192.168.1.163")
     if id == 3:
         try:
             data = bulb_room.get_properties()["power"]
@@ -240,6 +239,10 @@ def getYeelightState(id):
             return False
 
 def setYeelightState(id, state):
+    bulb_room = yeelight.Bulb("192.168.1.160")
+    bulb_bath = yeelight.Bulb("192.168.1.161")
+    bulb_hallway = yeelight.Bulb("192.168.1.162")
+    bulb_kitchen = yeelight.Bulb("192.168.1.163")
     if id == 3:
         if getYeelightState(id) != state:
             if state:
