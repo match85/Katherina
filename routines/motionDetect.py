@@ -19,6 +19,6 @@ if (time.time() > lastHallway + 60):
     deviceHandler.turnOffWashTemp()
 
 lastBath = statusHandler.getMotionLast(3)
-if (time.time() > lastBath + 60) and (deviceHandler.getLightState(4)):
-    logging.info("No motion detected bathroom for 1 minute")
+if (time.time() > lastBath + 120) and (deviceHandler.getLightState(4)):
+    logging.info("No motion detected bathroom for 2 minute")
     deviceHandler.setLightState(4, False)
