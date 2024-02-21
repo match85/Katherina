@@ -54,26 +54,26 @@ def setLightState(id, state):
         if getLightState(id) != state:
             if state:
                 try:
-                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                     bulb_room.turn_on()
+                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                 except yeelight.BulbException:
                     pass
             if not state:
                 try:
-                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                     bulb_room.turn_off()
+                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                 except yeelight.BulbException:
                     pass
         statusHandler.setLightState(id, state)
     if id == 4:
         if getLightState(id) != state:
             if state:
-                logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                 bulb_bath.turn_on()
+                logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
             if not state:
                 try:
-                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                     bulb_bath.turn_off()
+                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                 except yeelight.BulbException:
                     pass
         statusHandler.setLightState(id, state)
@@ -81,15 +81,15 @@ def setLightState(id, state):
         if getLightState(id) != state:
             if state:
                 try:
-                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                     bulb_hallway.turn_on()
+                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                 except yeelight.BulbException as err:
                     print(err)
                     pass
             if not state:
                 try:
-                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                     bulb_hallway.turn_off()
+                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                 except yeelight.BulbException as err:
                     print(err)
                     pass
@@ -98,14 +98,14 @@ def setLightState(id, state):
         if getLightState(id) != state:
             if state:
                 try:
-                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                     bulb_kitchen.turn_on()
+                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                 except yeelight.BulbException:
                     pass
             if not state:
                 try:
-                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                     bulb_kitchen.turn_off()
+                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                 except yeelight.BulbException:
                     pass
         statusHandler.setLightState(id, state)
