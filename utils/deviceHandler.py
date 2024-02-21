@@ -41,53 +41,122 @@ def getMotionState():
     return int(x.state)
 
 
-# Philips
+# Yeelight
 ##Lights
 
 
 def setLightState(id, state):
-    if (id == 3) or (id == 4) or (id == 2) or (id == 1):
-        setYeelightState(id, state)
-        try:
-            requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state), timeout=1)
-        except:
-            pass
-        return 'OK'
-    if statusHandler.getLightState(id) != state:
-        if id == 5:
-            url = hubUrl + "/lights/" + str(4) + "/state"
-        else:
-            url = hubUrl + "/lights/" + str(id) + "/state"
-        data = {"on": state}
+    bulb_room = yeelight.Bulb("192.168.1.160")
+    bulb_bath = yeelight.Bulb("192.168.1.161")
+    bulb_hallway = yeelight.Bulb("192.168.1.162")
+    bulb_kitchen = yeelight.Bulb("192.168.1.163")
+    if id == 3:
+        if getLightState(id) != state:
+            if state:
+                try:
+                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
+                    bulb_room.turn_on()
+                except yeelight.BulbException:
+                    pass
+            if not state:
+                try:
+                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
+                    bulb_room.turn_off()
+                except yeelight.BulbException:
+                    pass
         statusHandler.setLightState(id, state)
-        logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-        r = requests.put(url, json.dumps(data), timeout=5)
-        try:
-            requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state), timeout=1)
-        except:
-            pass
-        return 'OK'
-
-'''
-def setLightState(id, state):
-    url = hubUrl + "/lights/" + str(id) + "/state"
-    if state == 'on':
-        data = {"on": True}
-        statusHandler.setLightState(id, 'on')
-    else:
-        data = {"on": False}
-        statusHandler.setLightState(id, 'on')
-    logging.info("Switching " + state + " " + getLightName(id) + "(" + str(id) + ") light")
-    r = requests.put(url, json.dumps(data), timeout=5)
+    if id == 4:
+        if getLightState(id) != state:
+            if state:
+                logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
+                bulb_bath.turn_on()
+            if not state:
+                try:
+                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
+                    bulb_bath.turn_off()
+                except yeelight.BulbException:
+                    pass
+        statusHandler.setLightState(id, state)
+    if id == 2:
+        if getLightState(id) != state:
+            if state:
+                try:
+                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
+                    bulb_hallway.turn_on()
+                except yeelight.BulbException as err:
+                    print(err)
+                    pass
+            if not state:
+                try:
+                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
+                    bulb_hallway.turn_off()
+                except yeelight.BulbException as err:
+                    print(err)
+                    pass
+        statusHandler.setLightState(id, state)
+    if id == 1:
+        if getLightState(id) != state:
+            if state:
+                try:
+                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
+                    bulb_kitchen.turn_on()
+                except yeelight.BulbException:
+                    pass
+            if not state:
+                try:
+                    logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
+                    bulb_kitchen.turn_off()
+                except yeelight.BulbException:
+                    pass
+        statusHandler.setLightState(id, state)
     try:
-        requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state))
+        requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state), timeout=1)
     except:
         pass
-    return 'OK'
-'''
+        return 'OK'
+
 
 def getLightState(id):
-    return getYeelightState(id)
+    bulb_room = yeelight.Bulb("192.168.1.160")
+    bulb_bath = yeelight.Bulb("192.168.1.161")
+    bulb_hallway = yeelight.Bulb("192.168.1.162")
+    bulb_kitchen = yeelight.Bulb("192.168.1.163")
+    if id == 3:
+        try:
+            data = bulb_room.get_properties()["power"]
+        except yeelight.BulbException:
+            return False
+        if data == "on":
+            return True
+        if data == "off":
+            return False
+    if id == 4:
+        try:
+            data = bulb_bath.get_properties()["power"]
+        except yeelight.BulbException:
+            return False
+        if data == "on":
+            return True
+        if data == "off":
+            return False
+    if id == 2:
+        try:
+            data = bulb_hallway.get_properties()["power"]
+        except yeelight.BulbException:
+            return False
+        if data == "on":
+            return True
+        if data == "off":
+            return False
+    if id == 1:
+        try:
+            data = bulb_kitchen.get_properties()["power"]
+        except yeelight.BulbException:
+            return False
+        if data == "on":
+            return True
+        if data == "off":
+            return False
 
 
 def setLightBrightness(id, level):
@@ -193,113 +262,6 @@ def getTabletUrl():
 
 def alexaSay(text):
     logging.info(os.system(r'/home/pi/alexa-remote-control-master/alexa_remote_control.sh -d ALL -e speak:\"' + text + '\"'))
-
-#yeelight workaround
-
-def getYeelightState(id):
-    bulb_room = yeelight.Bulb("192.168.1.160")
-    bulb_bath = yeelight.Bulb("192.168.1.161")
-    bulb_hallway = yeelight.Bulb("192.168.1.162")
-    bulb_kitchen = yeelight.Bulb("192.168.1.163")
-    if id == 3:
-        try:
-            data = bulb_room.get_properties()["power"]
-        except yeelight.BulbException:
-            return False
-        if data == "on":
-            return True
-        if data == "off":
-            return False
-    if id == 4:
-        try:
-            data = bulb_bath.get_properties()["power"]
-        except yeelight.BulbException:
-            return False
-        if data == "on":
-            return True
-        if data == "off":
-            return False
-    if id == 2:
-        try:
-            data = bulb_hallway.get_properties()["power"]
-        except yeelight.BulbException:
-            return False
-        if data == "on":
-            return True
-        if data == "off":
-            return False
-    if id == 1:
-        try:
-            data = bulb_kitchen.get_properties()["power"]
-        except yeelight.BulbException:
-            return False
-        if data == "on":
-            return True
-        if data == "off":
-            return False
-
-def setYeelightState(id, state):
-    bulb_room = yeelight.Bulb("192.168.1.160")
-    bulb_bath = yeelight.Bulb("192.168.1.161")
-    bulb_hallway = yeelight.Bulb("192.168.1.162")
-    bulb_kitchen = yeelight.Bulb("192.168.1.163")
-    if id == 3:
-        if getYeelightState(id) != state:
-            if state:
-                try:
-                    bulb_room.turn_on()
-                except yeelight.BulbException:
-                    pass
-            if not state:
-                try:
-                    bulb_room.turn_off()
-                except yeelight.BulbException:
-                    pass
-        statusHandler.setLightState(id, state)
-        logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-    if id == 4:
-        if getYeelightState(id) != state:
-            if state:
-                try:
-                    bulb_bath.turn_on()
-                except yeelight.BulbException:
-                    pass
-            if not state:
-                try:
-                    bulb_bath.turn_off()
-                except yeelight.BulbException:
-                    pass
-        statusHandler.setLightState(id, state)
-        logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-    if id == 2:
-        if getYeelightState(id) != state:
-            if state:
-                try:
-                    bulb_hallway.turn_on()
-                except yeelight.BulbException:
-                    pass
-            if not state:
-                try:
-                    bulb_hallway.turn_off()
-                except yeelight.BulbException:
-                    pass
-        statusHandler.setLightState(id, state)
-        logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-    if id == 1:
-        if getYeelightState(id) != state:
-            if state:
-                try:
-                    bulb_kitchen.turn_on()
-                except yeelight.BulbException:
-                    pass
-            if not state:
-                try:
-                    bulb_kitchen.turn_off()
-                except yeelight.BulbException:
-                    pass
-        statusHandler.setLightState(id, state)
-        logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-    return 'OK'
 
 
 def turnOffWashTemp():
