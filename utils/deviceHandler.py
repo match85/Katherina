@@ -52,7 +52,8 @@ def setLightState(id, state):
     bulb_bath = yeelight.Bulb("192.168.1.161")
     bulb_hallway = yeelight.Bulb("192.168.1.162")
     bulb_kitchen = yeelight.Bulb("192.168.1.163")
-    while getLightState(id) != state:
+    counter = 1
+    while (getLightState(id) != state) & (counter <= 10):
         if id == 3:
             if getLightState(id) != state:
                 if state:
@@ -109,7 +110,12 @@ def setLightState(id, state):
                     except yeelight.BulbException:
                         pass
 
-    statusHandler.setLightState(id, state)
+    if counter > 1:
+        logging.info("Try counter on change light " + getLightName(id) + " state: " + counter)
+
+    if counter < 10:
+        statusHandler.setLightState(id, state)
+
     try:
         requests.get(deviceHandler.getTabletUrl() + "light" + str(id) + "=" + str(state), timeout=1)
     except (Exception, ):
