@@ -29,7 +29,6 @@ def on_message(client, userdata, message):
     importlib.reload(routineInfo)
     #print(message.topic)
     if message.topic == kitchenMotion:
-        logging.info("Motion detected in kitchen")
         response = json.loads(message.payload.decode("utf8"))
         print(response)
         #deviceInfo.setPhilipsData("motion", 1, "state", response['occupancy'])
@@ -37,7 +36,7 @@ def on_message(client, userdata, message):
         now = time.localtime()
         #print("Kitchen: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         if response['occupancy']:
-            #logging.info("Motion detected in kitchen")
+            logging.info("Motion detected in kitchen")
             #deviceInfo.setPhilipsData("motion", 1, "last", time.time())
             statusHandler.setMotionLast(1, time.time())
             if not statusHandler.getLightState(2):
@@ -47,7 +46,6 @@ def on_message(client, userdata, message):
                 deviceHandler.setLightState(1, True)
 
     if message.topic == hallwayMotion:
-        logging.info("Motion detected in hallway")
         response = json.loads(message.payload.decode("utf8"))
         print(response)
         #deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
@@ -56,7 +54,7 @@ def on_message(client, userdata, message):
         #print("Hallway: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         print(routineInfo.getRoutineData("kitchenMotion", "minIlluminance"))
         if response['occupancy']:
-            #logging.info("Motion detected in hallway")
+            logging.info("Motion detected in hallway")
             #deviceInfo.setPhilipsData("motion", 2, "last", time.time())
             statusHandler.setMotionLast(2, time.time())
             if not statusHandler.getLightState(1):
@@ -76,7 +74,6 @@ def on_message(client, userdata, message):
         #    if statusHandler.getLightState(2) and not response['occupancy']:
         #        deviceHandler.setLightState(2, False)
     if message.topic == 'zigbee2mqtt/bath_motion':
-        logging.info("Motion detected in bathroom")
         response = json.loads(message.payload.decode("utf8"))
         print(response)
         #deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
@@ -84,6 +81,7 @@ def on_message(client, userdata, message):
         now = time.localtime()
         #print("Bathroom: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']))
         if response['occupancy']:
+            logging.info("Motion detected in bathroom")
             statusHandler.setMotionLast(3, time.time())
             deviceHandler.setLightState(4, True)
 
