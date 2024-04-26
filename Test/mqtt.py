@@ -29,6 +29,7 @@ def on_message(client, userdata, message):
     importlib.reload(routineInfo)
     #print(message.topic)
     if message.topic == kitchenMotion:
+        logging.info("Motion detected in kitchen")
         response = json.loads(message.payload.decode("utf8"))
         print(response)
         #deviceInfo.setPhilipsData("motion", 1, "state", response['occupancy'])
@@ -46,6 +47,7 @@ def on_message(client, userdata, message):
                 deviceHandler.setLightState(1, True)
 
     if message.topic == hallwayMotion:
+        logging.info("Motion detected in hallway")
         response = json.loads(message.payload.decode("utf8"))
         print(response)
         #deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
@@ -74,6 +76,7 @@ def on_message(client, userdata, message):
         #    if statusHandler.getLightState(2) and not response['occupancy']:
         #        deviceHandler.setLightState(2, False)
     if message.topic == 'zigbee2mqtt/bath_motion':
+        logging.info("Motion detected in bathroom")
         response = json.loads(message.payload.decode("utf8"))
         print(response)
         #deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
