@@ -52,7 +52,7 @@ def setLightState(id, state):
     bulb_bath = yeelight.Bulb("192.168.1.161")
     bulb_hallway = yeelight.Bulb("192.168.1.162")
     bulb_kitchen = yeelight.Bulb("192.168.1.163")
-    counter = 1
+    counter = 0
     while (getLightState(id) != state) & (counter <= 10):
         if id == 3:
             if getLightState(id) != state:
@@ -109,6 +109,7 @@ def setLightState(id, state):
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                     except yeelight.BulbException:
                         pass
+        counter += 1
 
     if counter > 1:
         logging.info("Try counter on change light " + getLightName(id) + " state: " + counter)
