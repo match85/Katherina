@@ -28,6 +28,7 @@ def on_message(client, userdata, message):
     #print("received message: " ,str(message.payload.decode("utf-8")))
     importlib.reload(routineInfo)
     #print(message.topic)
+    logging.info("Message received: " + message.topic)
     if message.topic == kitchenMotion:
         response = json.loads(message.payload.decode("utf8"))
         print(response)
