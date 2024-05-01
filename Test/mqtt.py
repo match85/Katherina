@@ -25,20 +25,13 @@ doorSensor = deviceInfo.getXiaomiData('door', 1, 'zigbeeName')
 switch = deviceInfo.getPhilipsData('switch', 1, 'zigbeeName')
 
 def on_message(client, userdata, message):
-    #print("received message: " ,str(message.payload.decode("utf-8")))
     importlib.reload(routineInfo)
-    #print(message.topic)
+    response = json.loads(message.payload.decode("utf8"))
     logging.info("Message received: " + message.topic)
     if message.topic == kitchenMotion:
-        response = json.loads(message.payload.decode("utf8"))
-        print(response)
-        #deviceInfo.setPhilipsData("motion", 1, "state", response['occupancy'])
         statusHandler.setMotionState(1, response['occupancy'])
-        now = time.localtime()
-        #print("Kitchen: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         if response['occupancy']:
             logging.info("Motion detected in kitchen")
-            #deviceInfo.setPhilipsData("motion", 1, "last", time.time())
             statusHandler.setMotionLast(1, time.time())
             if not statusHandler.getLightState(2):
                 if int(response['illuminance']) < routineInfo.getRoutineData("kitchenMotion", "minIlluminance"):
@@ -47,16 +40,10 @@ def on_message(client, userdata, message):
                 deviceHandler.setLightState(1, True)
 
     if message.topic == hallwayMotion:
-        response = json.loads(message.payload.decode("utf8"))
-        print(response)
-        #deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
         statusHandler.setMotionState(2, response['occupancy'])
-        now = time.localtime()
-        #print("Hallway: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']) + " Illuminance: " + str(response['illuminance']) + " Lux: " + str(response['illuminance_lux']))
         print(routineInfo.getRoutineData("kitchenMotion", "minIlluminance"))
         if response['occupancy']:
             logging.info("Motion detected in hallway")
-            #deviceInfo.setPhilipsData("motion", 2, "last", time.time())
             statusHandler.setMotionLast(2, time.time())
             if not statusHandler.getLightState(1):
                 if int(response['illuminance']) < routineInfo.getRoutineData("kitchenMotion", "minIlluminance"):
@@ -70,30 +57,19 @@ def on_message(client, userdata, message):
                 requests.get(deviceHandler.getTabletUrl() + "motion=true")
             except:
                 pass
-        #else:
-            #logging.info("No motion detected in hallway")
-        #    if statusHandler.getLightState(2) and not response['occupancy']:
-        #        deviceHandler.setLightState(2, False)
+
     if message.topic == 'zigbee2mqtt/bath_motion':
-        response = json.loads(message.payload.decode("utf8"))
-        print(response)
-        #deviceInfo.setPhilipsData("motion", 2, "state", response['occupancy'])
         statusHandler.setMotionState(3, response['occupancy'])
-        now = time.localtime()
-        #print("Bathroom: " + time.strftime("%H:%M:%S", now), "Presence: " + str(response['occupancy']))
         if response['occupancy']:
             logging.info("Motion detected in bathroom")
             statusHandler.setMotionLast(3, time.time())
             deviceHandler.setLightState(4, True)
 
     if message.topic == doorSensor:
-        response = json.loads(message.payload.decode("utf8"))
-        print(response)
         statusHandler.setDoorState(1, response['contact'])
         logging.info("Door sensor " + str(response['contact']))
 
     if message.topic == switch:
-        response = json.loads(message.payload.decode("utf8"))
         try:
             if response['action'] == 'on-press':
                 if not statusHandler.getLightState(3):
