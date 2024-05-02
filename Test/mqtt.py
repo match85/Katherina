@@ -3,7 +3,6 @@ from datetime import date
 import paho.mqtt.client as mqtt
 import sys
 sys.path.append("..")
-import os
 import time
 import json
 import socket
@@ -13,10 +12,9 @@ from utils import statusHandler
 from config_data import routineInfo
 from config_data import deviceInfo
 import importlib
-
+import logging
 
 today = date.today()
-import logging
 logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S', level=logging.INFO)
 
 kitchenMotion = deviceInfo.getPhilipsData('motion', 1, 'zigbeeName')
@@ -119,6 +117,7 @@ def on_connect(client, userdata, flags, rc):
 mqttBroker = deviceInfo.getRpiIp()
 mqtt.Client.connected_flag=False
 client = mqtt.Client(socket.gethostname())
+client.enable_logger()
 client.on_connect = on_connect
 client.on_message = on_message
 print("Connecting to broker ", mqttBroker)
