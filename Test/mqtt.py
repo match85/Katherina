@@ -25,7 +25,7 @@ switch = deviceInfo.getPhilipsData('switch', 1, 'zigbeeName')
 def on_message(client, userdata, message):
     importlib.reload(routineInfo)
     response = json.loads(message.payload.decode("utf8"))
-    logging.info("Message received: " + message.topic)
+    logging.info("Message received: " + str(message.topic))
     if message.topic == kitchenMotion:
         statusHandler.setMotionState(1, response['occupancy'])
         if response['occupancy']:
