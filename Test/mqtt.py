@@ -15,7 +15,7 @@ import importlib
 import logging
 
 today = date.today()
-logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S', level=logging.INFO)
+logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S', level=logging.DEBUG)
 
 kitchenMotion = deviceInfo.getPhilipsData('motion', 1, 'zigbeeName')
 hallwayMotion = deviceInfo.getPhilipsData('motion', 2, 'zigbeeName')
