@@ -11,7 +11,6 @@ import requests
 from datetime import date, datetime
 from utils import statusHandler
 import os
-from yeelight import Bulb
 import paho.mqtt.client as mqtt
 
 today = date.today()

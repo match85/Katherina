@@ -14,11 +14,6 @@ from config_data import routineInfo
 from config_data import deviceInfo
 import importlib
 
-log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
-logging.getLogger('boto3').setLevel(logging.CRITICAL)
-logging.getLogger('botocore').setLevel(logging.CRITICAL)
-
 app = Flask(__name__)
 
 hubUrl = "http://" + deviceInfo.getPhilipsData("hub", "1", "ip") + "/api/" + deviceInfo.getPhilipsData("hub", "1", "auth")
