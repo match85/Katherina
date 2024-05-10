@@ -40,7 +40,6 @@ def on_message(client, userdata, message):
 
         if message.topic == hallwayMotion:
             statusHandler.setMotionState(2, response['occupancy'])
-            print(routineInfo.getRoutineData("kitchenMotion", "minIlluminance"))
             if response['occupancy']:
                 logging.info("Motion detected in hallway")
                 statusHandler.setMotionLast(2, time.time())
