@@ -98,7 +98,8 @@ def on_message(client, userdata, message):
 
             except:
                 pass
-    except:
+    except Exception as ex:
+        logging.info(ex)
         pass
 
 def on_connect(client, userdata, flags, rc):
