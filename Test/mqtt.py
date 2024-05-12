@@ -15,7 +15,7 @@ import importlib
 import logging
 
 today = date.today()
-logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S', level=logging.DEBUG)
+logging.basicConfig(filename='../logs/' + str(today) + '.log', format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S', level=logging.INFO)
 
 kitchenMotion = deviceInfo.getPhilipsData('motion', 1, 'zigbeeName')
 hallwayMotion = deviceInfo.getPhilipsData('motion', 2, 'zigbeeName')
@@ -102,6 +102,7 @@ def on_message(client, userdata, message):
         logging.info(ex)
         pass
 
+
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         client.connected_flag = True
@@ -117,7 +118,7 @@ def on_connect(client, userdata, flags, rc):
 
 
 mqttBroker = deviceInfo.getRpiIp()
-mqtt.Client.connected_flag=False
+mqtt.Client.connected_flag = False
 client = mqtt.Client(socket.gethostname())
 client.enable_logger()
 client.on_connect = on_connect
