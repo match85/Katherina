@@ -15,6 +15,7 @@ from config_data import deviceInfo
 import importlib
 
 app = Flask(__name__)
+app.logger.setLevel(logging.INFO)
 
 hubUrl = "http://" + deviceInfo.getPhilipsData("hub", "1", "ip") + "/api/" + deviceInfo.getPhilipsData("hub", "1", "auth")
 
