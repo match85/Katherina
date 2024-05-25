@@ -66,7 +66,8 @@ def setLightState(id, state):
                     try:
                         bulb_room.turn_off()
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-                    except yeelight.BulbException:
+                    except yeelight.BulbException as err:
+                        logging.info(str(err))
                         pass
         if id == 4:
             if getLightState(id) != state:
@@ -77,7 +78,8 @@ def setLightState(id, state):
                     try:
                         bulb_bath.turn_off()
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-                    except yeelight.BulbException:
+                    except yeelight.BulbException as err:
+                        logging.info(str(err))
                         pass
         if id == 2:
             if getLightState(id) != state:
@@ -86,14 +88,14 @@ def setLightState(id, state):
                         bulb_hallway.turn_on()
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                     except yeelight.BulbException as err:
-                        print(err)
+                        logging.info(str(err))
                         pass
                 if not state:
                     try:
                         bulb_hallway.turn_off()
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
                     except yeelight.BulbException as err:
-                        print(err)
+                        logging.info(str(err))
                         pass
         if id == 1:
             if getLightState(id) != state:
@@ -101,13 +103,15 @@ def setLightState(id, state):
                     try:
                         bulb_kitchen.turn_on()
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-                    except yeelight.BulbException:
+                    except yeelight.BulbExceptionas as err:
+                        logging.info(str(err))
                         pass
                 if not state:
                     try:
                         bulb_kitchen.turn_off()
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-                    except yeelight.BulbException:
+                    except yeelight.BulbException as err:
+                        logging.info(str(err))
                         pass
         counter += 1
 
