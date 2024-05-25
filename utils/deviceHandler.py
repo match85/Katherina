@@ -113,7 +113,7 @@ def setLightState(id, state):
 
     logging.info("End light state change")
     if counter > 1:
-        logging.info("Try counter on change light " + getLightName(id) + " state: " + counter)
+        logging.info("Try counter on change light " + getLightName(id) + " state: " + str(counter))
 
     if counter < 10:
         statusHandler.setLightState(id, state)
