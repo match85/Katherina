@@ -214,7 +214,7 @@ def setPlugState(id, state):
     try:
         requests.get(deviceHandler.getTabletUrl() + "plug" + str(id) + "=" + str(state), timeout=1)
     except Exception as ex:
-        logging.info(ex)
+        pass
     return 'OK'
 
 
