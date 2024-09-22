@@ -213,8 +213,8 @@ def setPlugState(id, state):
         sp.state = OFF
     try:
         requests.get(deviceHandler.getTabletUrl() + "plug" + str(id) + "=" + str(state), timeout=1)
-    except:
-        pass
+    except Exception as ex:
+        logging.info(ex)
     return 'OK'
 
 
