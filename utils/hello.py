@@ -120,4 +120,4 @@ def log(num):
         return Response(lines[int(num) * -1:], mimetype="text/plain", content_type="text/event-stream")
 
 if __name__ == '__main__':
-    app.run(debug=True, port=6969, host='0.0.0.0')
+    app.run(debug=False, port=6969, host='0.0.0.0')
