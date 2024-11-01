@@ -60,14 +60,9 @@
   "dlink": {
     "plug": {
       "0": {
-        "ip": "192.168.1.120",
-        "auth": "956258",
-        "name": "Air condition"
-      },
-      "1": {
         "ip": "192.168.1.121",
         "auth": "222595",
-        "name": "Undefined"
+        "name": "Air condition"
       }
     },
     "motion": {
