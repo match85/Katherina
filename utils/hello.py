@@ -76,6 +76,7 @@ def getParams():
 
 @app.route('/ht/report')
 def getTemp():
+
     temp = request.args.get('temp')
     hum = request.args.get('hum')
     statusHandler.setCurrentTemp(1, temp)
