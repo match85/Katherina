@@ -6,7 +6,7 @@ import time
 import logging
 
 lastKitchen = statusHandler.getMotionLast(1)
-if (time.time() > lastKitchen + 120) and (deviceHandler.getLightState(1)):
+if (time.time() > lastKitchen + 240) and (deviceHandler.getLightState(1)):
     logging.info("No motion detected kitchen for 1 minute")
     deviceHandler.setLightState(1, False)
 
@@ -15,7 +15,7 @@ if (time.time() > lastHallway + 60) and (deviceHandler.getLightState(2)):
     logging.info("No motion detected hallway for 1 minute")
     deviceHandler.setLightState(2, False)
 
-if (time.time() > lastHallway + 120):
+if (time.time() > lastHallway + 240):
     deviceHandler.turnOffWashTemp()
 
 lastBath = statusHandler.getMotionLast(3)
