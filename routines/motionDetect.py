@@ -11,11 +11,11 @@ if (time.time() > lastKitchen + 240) and (deviceHandler.getLightState(1)):
     deviceHandler.setLightState(1, False)
 
 lastHallway = statusHandler.getMotionLast(2)
-if (time.time() > lastHallway + 600) and (deviceHandler.getLightState(2)):
+if (time.time() > lastHallway + 60) and (deviceHandler.getLightState(2)):
     logging.info("No motion detected hallway for 1 minute")
     deviceHandler.setLightState(2, False)
 
-if (time.time() > lastHallway + 2400):
+if (time.time() > lastHallway + 240):
     deviceHandler.turnOffWashTemp()
 
 lastBath = statusHandler.getMotionLast(3)
