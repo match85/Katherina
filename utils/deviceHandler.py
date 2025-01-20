@@ -103,7 +103,7 @@ def setLightState(id, state):
                     try:
                         bulb_kitchen.turn_on()
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-                    except yeelight.BulbExceptionas as err:
+                    except yeelight.BulbException as err:
                         logging.info(str(err))
                         pass
                 if not state:
