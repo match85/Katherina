@@ -53,20 +53,20 @@ def setLightState(id, state):
     bulb_kitchen = yeelight.Bulb("192.168.1.163")
     counter = 0
     logging.info("Start light state change")
-    while (getLightState(id) != state) and (counter <= 10):
+    while (getLightState(id) != state) and (counter <= 2):
         if id == 3:
             if getLightState(id) != state:
                 if state:
                     try:
                         bulb_room.turn_on()
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-                    except yeelight.BulbException:
+                    except Exception:
                         pass
                 if not state:
                     try:
                         bulb_room.turn_off()
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-                    except yeelight.BulbException as err:
+                    except Exception as err:
                         logging.info(str(err))
                         pass
         if id == 4:
@@ -78,7 +78,7 @@ def setLightState(id, state):
                     try:
                         bulb_bath.turn_off()
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-                    except yeelight.BulbException as err:
+                    except Exception as err:
                         logging.info(str(err))
                         pass
         if id == 2:
@@ -87,14 +87,14 @@ def setLightState(id, state):
                     try:
                         bulb_hallway.turn_on()
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-                    except yeelight.BulbException as err:
+                    except Exception as err:
                         logging.info(str(err))
                         pass
                 if not state:
                     try:
                         bulb_hallway.turn_off()
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-                    except yeelight.BulbException as err:
+                    except Exception as err:
                         logging.info(str(err))
                         pass
         if id == 1:
@@ -103,14 +103,14 @@ def setLightState(id, state):
                     try:
                         bulb_kitchen.turn_on()
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-                    except yeelight.BulbException as err:
+                    except Exception as err:
                         logging.info(str(err))
                         pass
                 if not state:
                     try:
                         bulb_kitchen.turn_off()
                         logging.info("Setting light " + getLightName(id) + "(" + str(id) + ") to " + str(state))
-                    except yeelight.BulbException as err:
+                    except Exception as err:
                         logging.info(str(err))
                         pass
         counter += 1
@@ -137,7 +137,7 @@ def getLightState(id):
     if id == 3:
         try:
             data = bulb_room.get_properties()["power"]
-        except yeelight.BulbException:
+        except Exception:
             return False
         if data == "on":
             return True
@@ -146,7 +146,7 @@ def getLightState(id):
     if id == 4:
         try:
             data = bulb_bath.get_properties()["power"]
-        except yeelight.BulbException:
+        except Exception:
             return False
         if data == "on":
             return True
@@ -155,7 +155,7 @@ def getLightState(id):
     if id == 2:
         try:
             data = bulb_hallway.get_properties()["power"]
-        except yeelight.BulbException:
+        except Exception:
             return False
         if data == "on":
             return True
@@ -164,7 +164,7 @@ def getLightState(id):
     if id == 1:
         try:
             data = bulb_kitchen.get_properties()["power"]
-        except yeelight.BulbException:
+        except Exception:
             return False
         if data == "on":
             return True
