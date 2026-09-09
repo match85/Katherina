@@ -6,6 +6,7 @@ import time
 import logging
 
 lastKitchen = statusHandler.getMotionLast(1)
+deviceHandler.setLightState(1, False)
 if (time.time() > lastKitchen + 240) and (deviceHandler.getLightState(1)):
     logging.info("No motion detected kitchen for 1 minute")
     deviceHandler.setLightState(1, False)

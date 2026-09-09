@@ -1,23 +1,23 @@
 {
-  "temp": {
-    "enabled": true,
-    "min_temp": "21.0",
-    "max_temp": "22.0",
-    "min_hum": "40",
-    "max_hum": "60"
-  },
-  "comeHome": {
-    "enabled": true
-  },
-  "leftHome": {
-    "enabled": true,
-    "timeout": "5"
-  },
-  "dlinkMotion": {
-    "enabled": true,
-    "timeout": "1"
-  },
-  "kitchenMotion": {
-    "minIlluminance": 1500
-  }
+    "temp": {
+        "enabled": true,
+        "min_temp": "23.0",
+        "max_temp": "23.0",
+        "min_hum": "40",
+        "max_hum": "60"
+    },
+    "comeHome": {
+        "enabled": true
+    },
+    "leftHome": {
+        "enabled": true,
+        "timeout": "5"
+    },
+    "dlinkMotion": {
+        "enabled": true,
+        "timeout": "1"
+    },
+    "kitchenMotion": {
+        "minIlluminance": 1000
+    }
 }

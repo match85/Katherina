@@ -26,6 +26,7 @@ def on_message(client, userdata, message):
     try:
         importlib.reload(routineInfo)
         response = json.loads(message.payload.decode("utf8"))
+        print(response)
         logging.info("Message received: " + str(message.topic))
         if message.topic == kitchenMotion:
             statusHandler.setMotionState(1, response['occupancy'])
@@ -125,5 +126,6 @@ client.on_connect = on_connect
 client.on_message = on_message
 print("Connecting to broker ", mqttBroker)
 client.connect(mqttBroker)
+print("connected")
 client.loop_forever()
 client.loop_stop()
