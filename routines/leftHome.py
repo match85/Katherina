@@ -13,5 +13,5 @@ if not statusHandler.getPhoneState():
 	deviceHandler.setLightState(2, False)
 	deviceHandler.setLightState(3, False)
 	deviceHandler.setLightState(4, False)
-	deviceHandler.setPlugState(0, "off")
+	# deviceHandler.setPlugState(0, "off")
 	deviceHandler.turnOffWashTemp()
